@@ -1,9 +1,18 @@
 name: Version Patcher
-description: Patches the versions on C# (csproj VS2017+), Node (package.json), Python (setup.py) and other files
+description: Patches the versions on C# (csproj VS2017+), npm (package.json), Python (setup.py) and other files
 
 inputs:
-  py-files:
-    description: The Python files to patch
+  version:
+    description: The version to apply
+    required: true
+  csproj-files:
+    description: The glob used to find csproj files
+    required: false
+  npm-files:
+    description: The glob used to find package.json files
+    required: false
+  setuppy-files:
+    description: The glob used to find setup.py files
     required: false
 
 outputs:
