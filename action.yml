@@ -1,0 +1,15 @@
+name: Version Patcher
+description: Patches the versions on C# (csproj VS2017+), Node (package.json), Python (setup.py) and other files
+
+inputs:
+  py-files:
+    description: The Python files to patch
+    required: false
+
+outputs:
+  version:
+    description: The version used to patch the files
+
+runs:
+  using: node16
+  main: index.js

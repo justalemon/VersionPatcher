@@ -1,0 +1,22 @@
+{
+    "name": "versionpatcher",
+    "version": "1.0.0",
+    "description": "GitHub Action for patching the version on C# (csproj VS2017+), Node (package.json), Python (setup.py) and others",
+    "main": "index.js",
+    "scripts": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/justalemon/VersionPatcher.git"
+    },
+    "author": "Hannele \"Lemon\" Ruiz",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/justalemon/VersionPatcher/issues"
+    },
+    "homepage": "https://github.com/justalemon/VersionPatcher#readme",
+    "dependencies": {
+        "@actions/core": "^1.8.2",
+        "@actions/github": "^5.0.3",
+        "@actions/glob": "^0.3.0"
+    }
+}
