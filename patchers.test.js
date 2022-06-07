@@ -25,7 +25,7 @@ describe("patchers", () => {
         const to = "files/csproj/TestProject.Edit.csproj";
         const ready = "files/csproj/TestProject.Ready.csproj";
 
-        await match(from, to, ready, async () => await patchers.patchcsproj(to, "2.3.4"))
+        await match(from, to, ready, async () => await patchers.patchcsproj(to, "2.3.4"));
     });
 
     test("Patch npm package.json", async () => {
@@ -33,7 +33,7 @@ describe("patchers", () => {
         const to = "files/npm/package.edit.json";
         const ready = "files/npm/package.ready.json";
 
-        await match(from, to, ready, async () => await patchers.patchnpm(to, "2.3.4"))
+        await match(from, to, ready, async () => await patchers.patchnpm(to, "2.3.4"));
     });
 
     test("Patch setup.py", async () => {
@@ -41,6 +41,6 @@ describe("patchers", () => {
         const to = "files/setuppy/setup.edit.py";
         const ready = "files/setuppy/setup.ready.py";
 
-        await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"))
+        await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
     });
 });
