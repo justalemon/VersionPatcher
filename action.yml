@@ -1,5 +1,9 @@
 name: Version Patcher
+author: Lemon
 description: Patches the versions on C# (csproj VS2017+), npm (package.json), Python (setup.py) and other files
+branding:
+  color: purple
+  icon: edit-3
 
 inputs:
   version:
