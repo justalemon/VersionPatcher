@@ -1,4 +1,4 @@
-name: Lint and Test
+name: Lint, Test and Run
 on:
   - push
   - pull_request
@@ -34,3 +34,15 @@ jobs:
         run: npm install
       - name: Test
         run: npm run test
+  run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Run the Action
+        uses: .
+        with:
+          version: 5.5.2
+          csproj-files: files/csproj/TestProject.csproj
+          npm-files: files/npm/package.json
+          setuppy-files: files/setuppy/setup.py
