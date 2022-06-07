@@ -19,7 +19,7 @@ exports.patchcsproj = async function (glob_str, version)
                 return;
             }
 
-            const changed = false;
+            let changed = false;
 
             const array = result["Project"]["PropertyGroup"];
             array.forEach((value, _) => {
@@ -27,6 +27,7 @@ exports.patchcsproj = async function (glob_str, version)
                 {
                     value["Version"] = [version];
                 }
+                changed = true;
             });
 
             if (!changed)
