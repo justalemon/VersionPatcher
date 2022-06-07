@@ -52,7 +52,9 @@ exports.patchnpm = async function (glob_str, version)
         const contents = fs.readFileSync(file).toString();
         const json = JSON.parse(contents);
 
-        fs.writeFileSync(file, JSON.stringify(json));
+        json["version"] = version;
+
+        fs.writeFileSync(file, JSON.stringify(json, null, 4));
     }
 };
 
