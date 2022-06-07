@@ -22,7 +22,7 @@ exports.patchcsproj = async function (glob_str, version)
             let changed = false;
 
             const array = result["Project"]["PropertyGroup"];
-            array.forEach((value, _) => {
+            array.forEach((value) => {
                 if (value.hasOwnProperty("Version"))
                 {
                     value["Version"] = [version];
