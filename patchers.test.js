@@ -14,7 +14,7 @@ async function match(from, to, ready, callback) {
     const patched = fs.readFileSync(to, "utf-8");
     const sample = fs.readFileSync(ready, "utf-8");
 
-    fs.unlinkSync(to);
+    //fs.unlinkSync(to);
 
     expect(patched).toEqual(sample);
 }
@@ -26,6 +26,14 @@ describe("patchers", () => {
         const ready = "files/csproj/TestProject.Ready.csproj";
 
         await match(from, to, ready, async () => await patchers.patchcsproj(to, "2.3.4"))
+    });
+
+    test("Patch npm package.json", async () => {
+        const from = "files/npm/package.json";
+        const to = "files/npm/package.edit.json";
+        const ready = "files/npm/package.ready.json";
+
+        await match(from, to, ready, async () => await patchers.patchnpm(to, "2.3.4"))
     });
 
     test("Patch setup.py", async () => {
