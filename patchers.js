@@ -16,7 +16,10 @@ exports.patchcsproj = async function (glob_str, version)
             if (err)
             {
                 core.setFailed(err);
+                return;
             }
+
+            const changed = false;
 
             const array = result["Project"]["PropertyGroup"];
             array.forEach((value, _) => {
@@ -25,6 +28,12 @@ exports.patchcsproj = async function (glob_str, version)
                     value["Version"] = [version];
                 }
             });
+
+            if (!changed)
+            {
+                core.setFailed("No Version tag found in " + file);
+                return;
+            }
 
             const xml = new xml2js.Builder({headless: true}).buildObject(result);
             fs.writeFileSync(file, xml);
