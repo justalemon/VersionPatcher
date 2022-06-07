@@ -24,13 +24,13 @@ exports.patchcsproj = async function (glob_str, version)
                 {
                     value["Version"] = [version];
                 }
-            })
+            });
 
             const xml = new xml2js.Builder({headless: true}).buildObject(result);
             fs.writeFileSync(file, xml);
         });
     }
-}
+};
 
 exports.patchnpm = async function (glob_str, version)
 {
@@ -43,7 +43,7 @@ exports.patchnpm = async function (glob_str, version)
 
         fs.writeFileSync(file, JSON.stringify(json));
     }
-}
+};
 
 exports.patchsetuppy = async function (glob_str, version)
 {
@@ -57,4 +57,4 @@ exports.patchsetuppy = async function (glob_str, version)
 
         fs.writeFileSync(file, contents);
     }
-}
+};

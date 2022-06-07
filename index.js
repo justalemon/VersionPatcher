@@ -1,5 +1,5 @@
 const core = require("@actions/core");
-const patchers = require("patchers")
+const patchers = require("patchers");
 
 async function run() {
     try
@@ -23,12 +23,12 @@ async function run() {
 
         if (npm)
         {
-            await patchers.patchnpm(npm, version)
+            await patchers.patchnpm(npm, version);
         }
 
         if (setuppy)
         {
-            await patchers.patchsetuppy(setuppy, version)
+            await patchers.patchsetuppy(setuppy, version);
         }
     }
     catch (e)

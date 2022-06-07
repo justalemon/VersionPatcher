@@ -20,5 +20,5 @@ describe("patchers", () => {
 
         expect(patched).not.toEqual(original);
         expect(patched).toEqual(done);
-    })
-})
+    });
+});
