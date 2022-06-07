@@ -4,7 +4,8 @@ const glob = require("@actions/glob");
 const xml2js = require("xml2js");
 
 // *should* comply with PEP440
-const regex_setuppy = new RegExp("__version__ ?= ?[\"']v?(?:([0-9]+)!)?([0-9]+(?:\\.[0-9]+)*)([-_\\.]?(a|b|c|rc|alpha|beta|pre|preview)[-_\\.]?([0-9]+)?)?((?:-([0-9]+))[-_\\.]?(post|rev|r)[-_\\.]?([0-9]+)?)?([-_\\.]?(dev)[-_\\.]?([0-9]+)?)?(?:\\+([a-z0-9]+(?:[-_\\.][a-z0-9]+)*))?[\"']");
+const regex_setup = new RegExp("version( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
+const regex_init = new RegExp("__version__( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
 
 exports.patchcsproj = async function (glob_str, version)
 {
@@ -57,14 +58,24 @@ exports.patchnpm = async function (glob_str, version)
 
 exports.patchsetuppy = async function (glob_str, version)
 {
-    const globber = await glob.create(glob_str);
-
-    for await (const file of globber.globGenerator())
+    for await (const file of (await glob.create(glob_str)).globGenerator())
     {
-        const contents = fs.readFileSync(file);
+        const contents = fs.readFileSync(file, "utf-8");
 
-        // TODO: Find a way to reliably patch the setup.py file
+        if (contents.search(regex_setup) === -1)
+        {
+            core.setFailed("No match found on " + file);
+            return;
+        }
 
-        fs.writeFileSync(file, contents);
+        const matches = regex_setup.exec(contents);
+
+        const space = (matches[1] === " " || matches[2] === " ") ? " " : "";
+        const quote = (matches[3] === "\"" && matches[4] === "\"") ? "\"" : "'";
+
+        const madeVersion = `version${space}=${space}${quote}${version}${quote}`;
+        const newContents = contents.replace(regex_setup, madeVersion);
+
+        fs.writeFileSync(file, newContents);
     }
 };
