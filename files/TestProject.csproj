@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Version>2.3.4</Version>
+  </PropertyGroup>
+  <PropertyGroup Condition="'String A' == 'String B'">
+    <Version>2.3.4</Version>
+  </PropertyGroup>
+</Project>
