@@ -4,6 +4,7 @@
     "description": "GitHub Action for patching the version on C# (csproj VS2017+), Node (package.json), Python (setup.py) and others",
     "main": "index.js",
     "scripts": {
+        "merge": "ncc build index.js --source-map",
         "lint": "eslint .",
         "test": "jest"
     },
@@ -24,6 +25,7 @@
         "xml2js": "^0.4.23"
     },
     "devDependencies": {
+        "@vercel/ncc": "^0.34.0",
         "eslint": "^8.17.0",
         "eslint-plugin-jest": "^26.5.3",
         "jest": "^28.1.1"

@@ -18,6 +18,22 @@ jobs:
         run: npm install
       - name: Lint with eslint
         run: npm run lint
+  build:
+    runs-on: ubuntu-22.04
+    needs:
+      - lint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Select Node Version
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: npm
+      - name: Install Dependencies
+        run: npm install
+      - name: Build with ncc
+        run: npm run build
   test:
     runs-on: ubuntu-22.04
     needs:
