@@ -3,6 +3,9 @@ const fs = require("fs");
 const glob = require("@actions/glob");
 const xml2js = require("xml2js");
 
+// *should* comply with PEP440
+const regex_setuppy = new RegExp("__version__ ?= ?[\"']v?(?:([0-9]+)!)?([0-9]+(?:\\.[0-9]+)*)([-_\\.]?(a|b|c|rc|alpha|beta|pre|preview)[-_\\.]?([0-9]+)?)?((?:-([0-9]+))[-_\\.]?(post|rev|r)[-_\\.]?([0-9]+)?)?([-_\\.]?(dev)[-_\\.]?([0-9]+)?)?(?:\\+([a-z0-9]+(?:[-_\\.][a-z0-9]+)*))?[\"']");
+
 async function run() {
     try
     {
