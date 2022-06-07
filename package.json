@@ -3,7 +3,9 @@
     "version": "1.0.0",
     "description": "GitHub Action for patching the version on C# (csproj VS2017+), Node (package.json), Python (setup.py) and others",
     "main": "index.js",
-    "scripts": {},
+    "scripts": {
+        "test": "jest"
+    },
     "repository": {
         "type": "git",
         "url": "git+https://github.com/justalemon/VersionPatcher.git"
@@ -19,5 +21,8 @@
         "@actions/github": "^5.0.3",
         "@actions/glob": "^0.3.0",
         "xml2js": "^0.4.23"
+    },
+    "devDependencies": {
+        "jest": "^28.1.1"
     }
 }
