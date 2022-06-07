@@ -9,8 +9,7 @@ async function run() {
 
         if (!version)
         {
-            core.setFailed("No version was specified to patch!");
-            return;
+            throw "No version was specified to patch!";
         }
 
         const csproj = core.getInput("csproj-files");

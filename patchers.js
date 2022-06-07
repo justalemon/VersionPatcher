@@ -1,4 +1,3 @@
-const core = require("@actions/core");
 const fs = require("fs");
 const glob = require("@actions/glob");
 const xml2js = require("xml2js");
@@ -16,8 +15,7 @@ exports.patchcsproj = async function (glob_str, version)
         new xml2js.Parser({}).parseString(contents, (err, result) => {
             if (err)
             {
-                core.setFailed(err);
-                return;
+                throw err;
             }
 
             let changed = false;
@@ -33,8 +31,7 @@ exports.patchcsproj = async function (glob_str, version)
 
             if (!changed)
             {
-                core.setFailed("No Version tag found in " + file);
-                return;
+                throw `No Version tag found in ${file}`;
             }
 
             const xml = new xml2js.Builder({headless: true}).buildObject(result);
@@ -66,8 +63,7 @@ exports.patchsetuppy = async function (glob_str, version)
 
         if (contents.search(regex_setup) === -1)
         {
-            core.setFailed("No match found on " + file);
-            return;
+            throw `No match found on ${file}`;
         }
 
         const matches = regex_setup.exec(contents);
