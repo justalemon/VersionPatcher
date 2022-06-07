@@ -28,11 +28,11 @@ describe("patchers", () => {
         await match(from, to, ready, async () => await patchers.patchcsproj(to, "2.3.4"))
     });
 
-        await patchers.patchcsproj(path, "2.3.4");
+    test("Patch setup.py", async () => {
+        const from = "files/setuppy/setup.py";
+        const to = "files/setuppy/setup.edit.py";
+        const ready = "files/setuppy/setup.ready.py";
 
-        const patched = fs.readFileSync(path, "utf-8");
-        const done = fs.readFileSync("files/csproj/TestProject.Ready.csproj", "utf-8");
-
-        expect(patched).toEqual(done);
+        await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"))
     });
 });
