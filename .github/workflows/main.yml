@@ -79,3 +79,30 @@ jobs:
           csproj-files: files/csproj/TestProject.csproj
           npm-files: files/npm/package.json
           setuppy-files: files/setuppy/setup.py
+  push:
+    runs-on: ubuntu-22.04
+    needs:
+      - run
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Cache output
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: dist/
+          key: ${{ runner.os }}-build-${{ github.run_id }}
+      - name: Commit the changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git commit -m "Added changes from ${{ github.run_id }} [actions skip]" -a
+      - name: Push back to repo
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ github.token }}
+          branch: ${{ github.ref }}
