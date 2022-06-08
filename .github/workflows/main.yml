@@ -1,7 +1,8 @@
 name: Lint, Test and Run
 on:
-  - push
-  - pull_request
+  push:
+    paths-ignore:
+      - "dist/**"
 
 jobs:
   lint:
