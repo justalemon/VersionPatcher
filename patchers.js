@@ -10,6 +10,8 @@ exports.patchcsproj = async function (glob_str, version)
 {
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
+        console.log(`Patching csproj version in file ${file}`)
+
         const contents = fs.readFileSync(file, "utf-8");
 
         new xml2js.Parser({}).parseString(contents, (err, result) => {
@@ -42,6 +44,8 @@ exports.patchcsproj = async function (glob_str, version)
 
 exports.patchnpm = async function (glob_str, version)
 {
+    console.log(`Patching package.json version in file ${file}`)
+
     const globber = await glob.create(glob_str);
 
     for await (const file of globber.globGenerator())
@@ -57,6 +61,8 @@ exports.patchnpm = async function (glob_str, version)
 
 exports.patchsetuppy = async function (glob_str, version)
 {
+    console.log(`Patching setup.py version in file ${file}`)
+
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         const contents = fs.readFileSync(file, "utf-8");
