@@ -10,7 +10,7 @@ exports.patchcsproj = async function (glob_str, version)
 {
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
-        console.log(`Patching csproj version in file ${file}`)
+        console.log(`Patching csproj version in file ${file}`);
 
         const contents = fs.readFileSync(file, "utf-8");
 
@@ -44,12 +44,12 @@ exports.patchcsproj = async function (glob_str, version)
 
 exports.patchnpm = async function (glob_str, version)
 {
-    console.log(`Patching package.json version in file ${file}`)
-
     const globber = await glob.create(glob_str);
 
     for await (const file of globber.globGenerator())
     {
+        console.log(`Patching package.json version in file ${file}`);
+
         const contents = fs.readFileSync(file).toString();
         const json = JSON.parse(contents);
 
@@ -61,10 +61,10 @@ exports.patchnpm = async function (glob_str, version)
 
 exports.patchsetuppy = async function (glob_str, version)
 {
-    console.log(`Patching setup.py version in file ${file}`)
-
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
+        console.log(`Patching setup.py version in file ${file}`);
+
         const contents = fs.readFileSync(file, "utf-8");
 
         if (contents.search(regex_setup) === -1)
