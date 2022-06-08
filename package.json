@@ -4,7 +4,7 @@
     "description": "GitHub Action for patching the version on C# (csproj VS2017+), Node (package.json), Python (setup.py) and others",
     "main": "index.js",
     "scripts": {
-        "build": "ncc build index.js --source-map",
+        "build": "ncc build index.js",
         "lint": "eslint .",
         "test": "jest"
     },
