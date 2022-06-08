@@ -1,5 +1,5 @@
 const core = require("@actions/core");
-const patchers = require("patchers");
+const patchers = require("./patchers.js");
 
 // eslint-disable-next-line no-unused-vars
 async function run() {
