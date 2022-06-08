@@ -30,6 +30,13 @@ jobs:
         with:
           node-version: 16
           cache: npm
+      - name: Cache output
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: dist/
+          key: ${{ runner.os }}-build-${{ github.run_id }}
       - name: Install Dependencies
         run: npm install
       - name: Build with ncc
@@ -58,6 +65,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
+      - name: Cache output
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-build
+        with:
+          path: dist/
+          key: ${{ runner.os }}-build-${{ github.run_id }}
       - name: Run the Action
         uses: ./
         with:
