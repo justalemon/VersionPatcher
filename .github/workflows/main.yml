@@ -98,12 +98,14 @@ jobs:
           path: dist/
           key: ${{ runner.os }}-build-${{ github.run_id }}
       - name: Commit the changes
+        continue-on-error: true
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add dist/*
           git commit -m "Added changes from ${{ github.run_id }} [actions skip]" -a
       - name: Push back to repo
+        continue-on-error: true
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ github.token }}
