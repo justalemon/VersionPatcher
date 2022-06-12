@@ -11,6 +11,7 @@ It supports the following project types:
 | C#                    | *.csproj     | msbuild/dotnet      | VS 2017 and up only |
 | JavaScript/TypeScript | package.json | dotnet              |                     |
 | Python                | setup.py     | build/setuptools    |                     |
+| Python                | __init__.py  | PEP440              |                     |
 
 Please note that you need to have an existing dummy version for the script to pick detect.
 
