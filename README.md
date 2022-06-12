@@ -9,7 +9,7 @@ It supports the following project types:
 | Programming Language  | Project File    | Compiler or Manager | Remarks                      |
 |-----------------------|-----------------|---------------------|------------------------------|
 | C#                    | *.csproj        | msbuild/dotnet      | VS 2017 and up only          |
-| JavaScript/TypeScript | package.json    | dotnet              |                              |
+| JavaScript/TypeScript | package.json    | npm                 |                              |
 | Python                | setup.py        | build/setuptools    |                              |
 | Python                | \_\_init\_\_.py | PEP440              |                              |
 | Lua                   | fxmanifest.lua  | cfx.re              | For FiveM, RedM and LibertyM |
