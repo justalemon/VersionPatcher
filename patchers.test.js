@@ -51,4 +51,12 @@ describe("patchers", () => {
 
         await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
     });
+
+    test("Patch fxmanifest.lua", async () => {
+        const from = "files/fxmanifest/fxmanifest.lua";
+        const to = "files/fxmanifest/fxmanifest.edit.lua";
+        const ready = "files/fxmanifest/fxmanifest.ready.lua";
+
+        await match(from, to, ready, async () => await patchers.patchfxmanifest(to, "2.3.4"));
+    });
 });
