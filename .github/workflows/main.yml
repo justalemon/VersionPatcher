@@ -1,4 +1,4 @@
-name: Lint, Test and Run
+name: Build Action
 on:
   push:
     paths-ignore:
