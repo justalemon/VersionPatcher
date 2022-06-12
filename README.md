@@ -38,6 +38,7 @@ There are a couple of inputs that you can change to tweak the patching process. 
 | csproj-files  | optional    | The glob to use for finding C# projects, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                       |
 | npm-files     | optional    | The glob to use for finding npm package.json files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)            |
 | setuppy-files | optional    | The glob to use for finding Python/SetupTools setup.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)  |
+| initpy-files  | optional    | The glob to use for finding __init__.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                 |
 
 [actions-img]: https://img.shields.io/github/workflow/status/justalemon/VersionPatcher/Build%20Action?label=github%20actions
 [actions-url]: https://github.com/justalemon/VersionPatcher/actions
