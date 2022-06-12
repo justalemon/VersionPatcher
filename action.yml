@@ -18,6 +18,9 @@ inputs:
   setuppy-files:
     description: The glob used to find setup.py files
     required: false
+  initpy-files:
+    description: The glob used to find __init__.py files
+    required: false
 
 outputs:
   version:
