@@ -4,7 +4,7 @@ const xml2js = require("xml2js");
 
 // *should* comply with PEP440
 const regex_setup = new RegExp("version( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
-//const regex_init = new RegExp("__version__( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
+const regex_init = new RegExp("__version__( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
 
 async function patchWithRegex(file, version, regex)
 {
@@ -84,6 +84,15 @@ exports.patchsetuppy = async function (glob_str, version)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching setup.py version in file ${file}`);
-        patchWithRegex(file, version, regex_setup);
+        await patchWithRegex(file, version, regex_setup);
+    }
+};
+
+exports.patchinitpy = async function (glob_str, version)
+{
+    for await (const file of (await glob.create(glob_str)).globGenerator())
+    {
+        console.log(`Patching __init__.py version in file ${file}`);
+        await patchWithRegex(file, version, regex_init);
     }
 };

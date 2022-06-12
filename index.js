@@ -14,6 +14,7 @@ async function run() {
         const csproj = core.getInput("csproj-files");
         const npm = core.getInput("npm-files");
         const setuppy = core.getInput("setuppy-files");
+        const initpy = core.getInput("initpy-files");
 
         if (csproj)
         {
@@ -28,6 +29,11 @@ async function run() {
         if (setuppy)
         {
             await patchers.patchsetuppy(setuppy, version);
+        }
+
+        if (initpy)
+        {
+            await patchers.patchinitpy(initpy, version);
         }
     }
     catch (e)
