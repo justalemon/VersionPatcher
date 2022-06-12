@@ -6,6 +6,26 @@ const xml2js = require("xml2js");
 const regex_setup = new RegExp("version( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
 //const regex_init = new RegExp("__version__( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
 
+async function patchWithRegex(file, version, regex)
+{
+    const contents = fs.readFileSync(file, "utf-8");
+
+    if (contents.search(regex) === -1)
+    {
+        throw `No match found on ${file}`;
+    }
+
+    const matches = regex.exec(contents);
+
+    const space = (matches[1] === " " || matches[2] === " ") ? " " : "";
+    const quote = (matches[3] === "\"" && matches[4] === "\"") ? "\"" : "'";
+
+    const madeVersion = `version${space}=${space}${quote}${version}${quote}`;
+    const newContents = contents.replace(regex, madeVersion);
+
+    fs.writeFileSync(file, newContents);
+}
+
 exports.patchcsproj = async function (glob_str, version)
 {
     for await (const file of (await glob.create(glob_str)).globGenerator())
@@ -64,22 +84,6 @@ exports.patchsetuppy = async function (glob_str, version)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching setup.py version in file ${file}`);
-
-        const contents = fs.readFileSync(file, "utf-8");
-
-        if (contents.search(regex_setup) === -1)
-        {
-            throw `No match found on ${file}`;
-        }
-
-        const matches = regex_setup.exec(contents);
-
-        const space = (matches[1] === " " || matches[2] === " ") ? " " : "";
-        const quote = (matches[3] === "\"" && matches[4] === "\"") ? "\"" : "'";
-
-        const madeVersion = `version${space}=${space}${quote}${version}${quote}`;
-        const newContents = contents.replace(regex_setup, madeVersion);
-
-        fs.writeFileSync(file, newContents);
+        patchWithRegex(file, version, regex_setup);
     }
 };
