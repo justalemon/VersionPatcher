@@ -6,12 +6,12 @@ VersionPatcher is a simple GitHub Action that helps you patch the version of you
 
 It supports the following project types:
 
-| Programming Language  | Project File | Compiler or Manager | Remarks             |
-|-----------------------|--------------|---------------------|---------------------|
-| C#                    | *.csproj     | msbuild/dotnet      | VS 2017 and up only |
-| JavaScript/TypeScript | package.json | dotnet              |                     |
-| Python                | setup.py     | build/setuptools    |                     |
-| Python                | __init__.py  | PEP440              |                     |
+| Programming Language  | Project File    | Compiler or Manager | Remarks             |
+|-----------------------|-----------------|---------------------|---------------------|
+| C#                    | *.csproj        | msbuild/dotnet      | VS 2017 and up only |
+| JavaScript/TypeScript | package.json    | dotnet              |                     |
+| Python                | setup.py        | build/setuptools    |                     |
+| Python                | \_\_init\_\_.py | PEP440              |                     |
 
 Please note that you need to have an existing dummy version for the script to pick detect.
 
@@ -38,7 +38,7 @@ There are a couple of inputs that you can change to tweak the patching process. 
 | csproj-files  | optional    | The glob to use for finding C# projects, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                       |
 | npm-files     | optional    | The glob to use for finding npm package.json files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)            |
 | setuppy-files | optional    | The glob to use for finding Python/SetupTools setup.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)  |
-| initpy-files  | optional    | The glob to use for finding __init__.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                 |
+| initpy-files  | optional    | The glob to use for finding \_\_init\_\_.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)             |
 
 [actions-img]: https://img.shields.io/github/workflow/status/justalemon/VersionPatcher/Build%20Action?label=github%20actions
 [actions-url]: https://github.com/justalemon/VersionPatcher/actions
