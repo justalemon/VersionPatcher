@@ -15,6 +15,7 @@ async function run() {
         const npm = core.getInput("npm-files");
         const setuppy = core.getInput("setuppy-files");
         const initpy = core.getInput("initpy-files");
+        const fxmanifest = core.getInput("fxmanifest-files");
 
         if (csproj)
         {
@@ -34,6 +35,11 @@ async function run() {
         if (initpy)
         {
             await patchers.patchinitpy(initpy, version);
+        }
+
+        if (fxmanifest)
+        {
+            await patchers.patchinitpy(fxmanifest, version);
         }
     }
     catch (e)
