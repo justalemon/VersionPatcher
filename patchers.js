@@ -17,10 +17,25 @@ async function patchWithRegex(file, version, regex)
 
     const matches = regex.exec(contents);
 
-    const space = (matches[1] === " " || matches[2] === " ") ? " " : "";
-    const quote = (matches[3] === "\"" && matches[4] === "\"") ? "\"" : "'";
+    let one = matches[1];
+    let two = matches[2];
+    let three = matches[3];
+    let four = matches[4];
+    let equals = "=";
 
-    const madeVersion = `version${space}=${space}${quote}${version}${quote}`;
+    if (typeof four === "undefined")
+    {
+        four = three;
+        three = two;
+        two = one;
+        equals = "";
+    }
+
+    const spaceLeft = (one === " " || two === " ") ? " " : "";
+    const spaceRight = equals ? spaceLeft : "";
+    const quote = (three === "\"" && four === "\"") ? "\"" : "'";
+
+    const madeVersion = `version${spaceLeft}${equals}${spaceRight}${quote}${version}${quote}`;
     const newContents = contents.replace(regex, madeVersion);
 
     fs.writeFileSync(file, newContents);
