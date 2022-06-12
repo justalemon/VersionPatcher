@@ -43,4 +43,12 @@ describe("patchers", () => {
 
         await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
     });
+
+    test("Patch __init__.py", async () => {
+        const from = "files/initpy/__init__.py";
+        const to = "files/initpy/__init__.edit.py";
+        const ready = "files/initpy/__init__.ready.py";
+
+        await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
+    });
 });
