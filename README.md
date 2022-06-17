@@ -36,6 +36,7 @@ There are a couple of inputs that you can change to tweak the patching process. 
 | Name             | Requirement | Description                                                                                                                                                               |
 |------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | version          | required    | The version to apply to the patched project, please make sure that the version that you are going to patch is compatible with the versioning used by your package manager |
+| trim             | optional    | If the action will trim the v or V at the beginning of the version before applying it, this is set to true by default (since v0.2)                                        |
 | csproj-files     | optional    | The glob to use for finding C# projects, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                       |
 | npm-files        | optional    | The glob to use for finding npm package.json files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)            |
 | setuppy-files    | optional    | The glob to use for finding Python/SetupTools setup.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)  |
