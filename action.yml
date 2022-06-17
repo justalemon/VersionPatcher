@@ -9,6 +9,10 @@ inputs:
   version:
     description: The version to apply
     required: true
+  trim:
+    description: If the v or V at the beginning of the version should be trimmed
+    required: false
+    default: "true"
   csproj-files:
     description: The glob used to find csproj files
     required: false

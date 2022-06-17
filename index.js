@@ -1,14 +1,24 @@
 const core = require("@actions/core");
 const patchers = require("./patchers.js");
 
+function toBoolean(input) {
+    return input.toLowerCase().trim() === "true";
+}
+
 async function run() {
     try
     {
-        const version = core.getInput("version");
+        let version = core.getInput("version").trim();
 
         if (!version)
         {
             throw "No version was specified to patch!";
+        }
+
+        if (toBoolean(core.getInput("trim")) && (version.indexOf("v") === 0 || version.indexOf("V") === 0))
+        {
+            version = version.substring(1);
+            console.log("Trimmed v from the beginning");
         }
 
         const csproj = core.getInput("csproj-files");
