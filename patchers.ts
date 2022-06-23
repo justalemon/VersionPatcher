@@ -17,7 +17,7 @@ async function patchWithRegex(file: string, version: string, regex: RegExp)
         throw `No match found on ${file}`;
     }
 
-    let one = matches[1];
+    const one = matches[1];
     let two = matches[2];
     let three = matches[3];
     let four = matches[4];
@@ -49,8 +49,7 @@ export async function patchcsproj(glob_str: string, version: string)
 
         const contents = fs.readFileSync(file, "utf-8");
 
-        // @ts-ignore
-        new xml2js.Parser({}).parseString(contents, (err: Error, result: Object) => {
+        new xml2js.Parser({}).parseString(contents, (err, result) => {
             if (err)
             {
                 throw err;
@@ -58,10 +57,8 @@ export async function patchcsproj(glob_str: string, version: string)
 
             let changed = false;
 
-            // @ts-ignore
             const array = result["Project"]["PropertyGroup"];
-            // @ts-ignore
-            array.forEach((value) => {
+            array.forEach((value: { [x: string]: string[]; }) => {
                 if (value.hasOwnProperty("Version"))
                 {
                     value["Version"] = [version];
@@ -122,4 +119,4 @@ export async function patchfxmanifest(glob_str: string, version: string)
         console.log(`Patching fxmanifest.lua version in file ${file}`);
         await patchWithRegex(file, version, regex_fxmanifest);
     }
-};
+}
