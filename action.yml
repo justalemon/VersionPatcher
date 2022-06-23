@@ -13,6 +13,10 @@ inputs:
     description: If the v or V at the beginning of the version should be trimmed
     required: false
     default: "true"
+  use-tag:
+    description: If the tag should be used as the version number on Release
+    required: false
+    default: "false"
   csproj-files:
     description: The glob used to find csproj files
     required: false
