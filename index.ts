@@ -1,5 +1,7 @@
 import * as core from "@actions/core";
+import * as github from "@actions/github";
 import * as patchers from "./patchers";
+import {ReleaseEvent} from "@octokit/webhooks-definitions/schema";
 
 function toBoolean(input: string) {
     return input.toLowerCase().trim() === "true";
@@ -9,6 +11,18 @@ async function run() {
     try
     {
         let version = core.getInput("version").trim();
+        const useTag = toBoolean(core.getInput("trim"));
+
+        if (useTag)
+        {
+            const context = github.context;
+
+            if (context.eventName === "release")
+            {
+                const payload = context.payload as ReleaseEvent;
+                version = payload.release.tag_name;
+            }
+        }
 
         if (!version)
         {
