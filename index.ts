@@ -1,7 +1,7 @@
 const core = require("@actions/core");
 const patchers = require("./patchers.js");
 
-function toBoolean(input) {
+function toBoolean(input: string) {
     return input.toLowerCase().trim() === "true";
 }
 
