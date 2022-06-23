@@ -11,7 +11,7 @@ async function run() {
     try
     {
         let version = core.getInput("version").trim();
-        const useTag = toBoolean(core.getInput("trim"));
+        const useTag = toBoolean(core.getInput("use-tag"));
 
         if (useTag)
         {
@@ -35,6 +35,8 @@ async function run() {
             version = version.substring(1);
             console.log("Trimmed v from the beginning");
         }
+
+        console.log(`Using Version ${version}`);
 
         const csproj = core.getInput("csproj-files");
         const npm = core.getInput("npm-files");
