@@ -1,6 +1,6 @@
 # VersionPatcher<br>[![GitHub Actions][actions-img]][actions-url] [![Patreon][patreon-img]][patreon-url] [![PayPal][paypal-img]][paypal-url] [![Discord][discord-img]][discord-url]
 
-> Please note that the Action is currently in Beta and is my first project in JS, so some bugs might be present. Feel free to open an issue if you find any.
+> Please note that the Action is currently in Beta and is my first project in TypeScript, so some bugs might be present. Bug Reports and Feature Requests are welcome!
 
 VersionPatcher is a simple GitHub Action that helps you patch the version of your projects before compiling your code. It can be considered a replacement for AppVeyor's AssemblyInfo and NET .csproj patching for people moving from AppVeyor to GitHub Actions.
 
