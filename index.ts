@@ -1,5 +1,5 @@
-const core = require("@actions/core");
-const patchers = require("./patchers.js");
+import * as core from "@actions/core";
+import * as patchers from "./patchers";
 
 function toBoolean(input: string) {
     return input.toLowerCase().trim() === "true";
@@ -54,7 +54,10 @@ async function run() {
     }
     catch (e)
     {
-        core.setFailed(e);
+        if (e instanceof Error)
+        {
+            core.setFailed(e.message);
+        }
     }
 }
 
