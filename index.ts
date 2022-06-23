@@ -21,6 +21,7 @@ async function run() {
             {
                 const payload = context.payload as ReleaseEvent;
                 version = payload.release.tag_name;
+                console.log("Using version from Release Tag " + version);
             }
         }
 
