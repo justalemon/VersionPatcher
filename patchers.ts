@@ -1,22 +1,21 @@
-const fs = require("fs");
-const glob = require("@actions/glob");
-const xml2js = require("xml2js");
+import * as fs from "fs";
+import * as glob from "@actions/glob";
+import xml2js from "xml2js";
 
 // *should* comply with PEP440
 const regex_setup = new RegExp("version( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
 const regex_init = new RegExp("__version__( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
 const regex_fxmanifest = new RegExp("version( )([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
 
-async function patchWithRegex(file, version, regex)
+async function patchWithRegex(file: string, version: string, regex: RegExp)
 {
     const contents = fs.readFileSync(file, "utf-8");
+    const matches = regex.exec(contents);
 
-    if (contents.search(regex) === -1)
+    if (contents.search(regex) === -1 || matches == null)
     {
         throw `No match found on ${file}`;
     }
-
-    const matches = regex.exec(contents);
 
     let one = matches[1];
     let two = matches[2];
@@ -42,7 +41,7 @@ async function patchWithRegex(file, version, regex)
     fs.writeFileSync(file, newContents);
 }
 
-exports.patchcsproj = async function (glob_str, version)
+export async function patchcsproj(glob_str: string, version: string)
 {
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
@@ -50,7 +49,8 @@ exports.patchcsproj = async function (glob_str, version)
 
         const contents = fs.readFileSync(file, "utf-8");
 
-        new xml2js.Parser({}).parseString(contents, (err, result) => {
+        // @ts-ignore
+        new xml2js.Parser({}).parseString(contents, (err: Error, result: Object) => {
             if (err)
             {
                 throw err;
@@ -58,7 +58,9 @@ exports.patchcsproj = async function (glob_str, version)
 
             let changed = false;
 
+            // @ts-ignore
             const array = result["Project"]["PropertyGroup"];
+            // @ts-ignore
             array.forEach((value) => {
                 if (value.hasOwnProperty("Version"))
                 {
@@ -76,9 +78,9 @@ exports.patchcsproj = async function (glob_str, version)
             fs.writeFileSync(file, xml);
         });
     }
-};
+}
 
-exports.patchnpm = async function (glob_str, version)
+export async function patchnpm(glob_str: string, version: string)
 {
     const globber = await glob.create(glob_str);
 
@@ -93,28 +95,27 @@ exports.patchnpm = async function (glob_str, version)
 
         fs.writeFileSync(file, JSON.stringify(json, null, 4));
     }
-};
+}
 
-exports.patchsetuppy = async function (glob_str, version)
+export async function patchsetuppy(glob_str: string, version: string)
 {
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching setup.py version in file ${file}`);
         await patchWithRegex(file, version, regex_setup);
     }
-};
+}
 
-exports.patchinitpy = async function (glob_str, version)
+export async function patchinitpy(glob_str: string, version: string)
 {
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching __init__.py version in file ${file}`);
         await patchWithRegex(file, version, regex_init);
     }
-};
+}
 
-
-exports.patchfxmanifest = async function (glob_str, version)
+export async function patchfxmanifest(glob_str: string, version: string)
 {
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
