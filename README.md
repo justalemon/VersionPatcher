@@ -44,6 +44,12 @@ There are a couple of inputs that you can change to tweak the patching process. 
 | initpy-files     | optional    | The glob to use for finding \_\_init\_\_.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)             |
 | fxmanifest-files | optional    | The glob to use for finding cfx.re fxmanifest.lua files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)       |
 
+There are also a couple of outputs that you can access from your workflow:
+
+| Name    | Description                                                                    |
+|---------|--------------------------------------------------------------------------------|
+| version | The trimmed version (without the v/V at the beginning or trailing whitespaces) |
+
 [actions-img]: https://img.shields.io/github/workflow/status/justalemon/VersionPatcher/Build%20Action?label=github%20actions
 [actions-url]: https://github.com/justalemon/VersionPatcher/actions
 [patreon-img]: https://img.shields.io/badge/support-patreon-FF424D.svg
