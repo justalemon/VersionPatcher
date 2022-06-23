@@ -46,9 +46,9 @@ There are a couple of inputs that you can change to tweak the patching process. 
 
 There are also a couple of outputs that you can access from your workflow:
 
-| Name    | Description                                                                    |
-|---------|--------------------------------------------------------------------------------|
-| version | The trimmed version (without the v/V at the beginning or trailing whitespaces) |
+| Name    | Description                                                                                |
+|---------|--------------------------------------------------------------------------------------------|
+| version | The trimmed version (without the v/V at the beginning or trailing whitespaces, since v0.4) |
 
 [actions-img]: https://img.shields.io/github/workflow/status/justalemon/VersionPatcher/Build%20Action?label=github%20actions
 [actions-url]: https://github.com/justalemon/VersionPatcher/actions
