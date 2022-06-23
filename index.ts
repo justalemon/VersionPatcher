@@ -37,6 +37,7 @@ async function run() {
         }
 
         console.log(`Using Version ${version}`);
+        core.setOutput("version", version);
 
         const csproj = core.getInput("csproj-files");
         const npm = core.getInput("npm-files");
