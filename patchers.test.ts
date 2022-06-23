@@ -1,7 +1,9 @@
-const fs = require("fs");
-const patchers = require("./patchers.js");
+import * as fs from "fs";
+import * as patchers from "./patchers";
 
-async function match(from, to, ready, callback) {
+type NoParamsCallback = () => void;
+
+async function match(from: string, to: string, ready: string, callback: NoParamsCallback) {
     if (fs.existsSync(to))
     {
         fs.unlinkSync(to);
