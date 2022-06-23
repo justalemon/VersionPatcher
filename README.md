@@ -6,13 +6,13 @@ VersionPatcher is a simple GitHub Action that helps you patch the version of you
 
 It supports the following project types:
 
-| Programming Language  | Project File    | Compiler or Manager | Remarks                      |
-|-----------------------|-----------------|---------------------|------------------------------|
-| C#                    | *.csproj        | msbuild/dotnet      | VS 2017 and up only          |
-| JavaScript/TypeScript | package.json    | npm                 |                              |
-| Python                | setup.py        | build/setuptools    |                              |
-| Python                | \_\_init\_\_.py | PEP440              |                              |
-| Lua                   | fxmanifest.lua  | cfx.re              | For FiveM, RedM and LibertyM |
+| Programming Language  | Project File    | Used By          | Remarks                      |
+|-----------------------|-----------------|------------------|------------------------------|
+| C#                    | *.csproj        | msbuild/dotnet   | VS 2017 and up only          |
+| JavaScript/TypeScript | package.json    | npm              |                              |
+| Python                | setup.py        | build/setuptools |                              |
+| Python                | \_\_init\_\_.py | PEP440           |                              |
+| Lua                   | fxmanifest.lua  | cfx.re Platform  | For FiveM, RedM and LibertyM |
 
 Please note that you need to have an existing dummy version for the script to pick detect.
 
