@@ -47,7 +47,7 @@ async function run() {
 
         if (csproj)
         {
-            var csproj_done = await patchers.patchcsproj(csproj, version);
+            let csproj_done = await patchers.patchcsproj(csproj, version);
             if (!csproj_done)
             {
                 throw "Couldn't find any csproj files to match";
@@ -56,7 +56,7 @@ async function run() {
 
         if (npm)
         {
-            var npm_done = await patchers.patchnpm(npm, version);
+            let npm_done = await patchers.patchnpm(npm, version);
             if (!npm_done)
             {
                 throw "Couldn't find any csproj files to match";
@@ -65,7 +65,7 @@ async function run() {
 
         if (setuppy)
         {
-            var setuppy_done = await patchers.patchsetuppy(setuppy, version);
+            let setuppy_done = await patchers.patchsetuppy(setuppy, version);
             if (!setuppy_done)
             {
                 throw "Couldn't find any csproj files to match";
@@ -74,7 +74,7 @@ async function run() {
 
         if (initpy)
         {
-            var initpy_done = await patchers.patchinitpy(initpy, version);
+            let initpy_done = await patchers.patchinitpy(initpy, version);
             if (!initpy_done)
             {
                 throw "Couldn't find any csproj files to match";
@@ -83,7 +83,7 @@ async function run() {
 
         if (fxmanifest)
         {
-            var fxmanifest_done = await patchers.patchinitpy(fxmanifest, version);
+            let fxmanifest_done = await patchers.patchinitpy(fxmanifest, version);
             if (!fxmanifest_done)
             {
                 throw "Couldn't find any csproj files to match";
