@@ -47,27 +47,47 @@ async function run() {
 
         if (csproj)
         {
-            await patchers.patchcsproj(csproj, version);
+            var csproj_done = await patchers.patchcsproj(csproj, version);
+            if (!csproj_done)
+            {
+                throw "Couldn't find any csproj files to match";
+            }
         }
 
         if (npm)
         {
-            await patchers.patchnpm(npm, version);
+            var npm_done = await patchers.patchnpm(npm, version);
+            if (!npm_done)
+            {
+                throw "Couldn't find any csproj files to match";
+            }
         }
 
         if (setuppy)
         {
-            await patchers.patchsetuppy(setuppy, version);
+            var setuppy_done = await patchers.patchsetuppy(setuppy, version);
+            if (!setuppy_done)
+            {
+                throw "Couldn't find any csproj files to match";
+            }
         }
 
         if (initpy)
         {
-            await patchers.patchinitpy(initpy, version);
+            var initpy_done = await patchers.patchinitpy(initpy, version);
+            if (!initpy_done)
+            {
+                throw "Couldn't find any csproj files to match";
+            }
         }
 
         if (fxmanifest)
         {
-            await patchers.patchinitpy(fxmanifest, version);
+            var fxmanifest_done = await patchers.patchinitpy(fxmanifest, version);
+            if (!fxmanifest_done)
+            {
+                throw "Couldn't find any csproj files to match";
+            }
         }
     }
     catch (e)

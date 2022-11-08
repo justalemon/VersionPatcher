@@ -43,6 +43,8 @@ async function patchWithRegex(file: string, version: string, regex: RegExp)
 
 export async function patchcsproj(glob_str: string, version: string)
 {
+    var patched = false;
+
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching csproj version in file ${file}`);
@@ -73,15 +75,19 @@ export async function patchcsproj(glob_str: string, version: string)
 
             const xml = new xml2js.Builder({headless: true}).buildObject(result);
             fs.writeFileSync(file, xml);
+
+            patched = true;
         });
     }
+
+    return patched;
 }
 
 export async function patchnpm(glob_str: string, version: string)
 {
-    const globber = await glob.create(glob_str);
+    var patched = false;
 
-    for await (const file of globber.globGenerator())
+    for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching package.json version in file ${file}`);
 
@@ -91,32 +97,51 @@ export async function patchnpm(glob_str: string, version: string)
         json["version"] = version;
 
         fs.writeFileSync(file, JSON.stringify(json, null, 4));
+
+        patched = true;
     }
+
+    return patched;
 }
 
 export async function patchsetuppy(glob_str: string, version: string)
 {
+    var patched = false;
+
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching setup.py version in file ${file}`);
         await patchWithRegex(file, version, regex_setup);
+        patched = true;
     }
+
+    return patched;
 }
 
 export async function patchinitpy(glob_str: string, version: string)
 {
+    var patched = false;
+
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching __init__.py version in file ${file}`);
         await patchWithRegex(file, version, regex_init);
+        patched = true;
     }
+
+    return patched;
 }
 
 export async function patchfxmanifest(glob_str: string, version: string)
 {
+    var patched = false;
+
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching fxmanifest.lua version in file ${file}`);
         await patchWithRegex(file, version, regex_fxmanifest);
+        patched = true;
     }
+
+    return patched;
 }

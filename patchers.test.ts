@@ -30,12 +30,22 @@ describe("patchers", () => {
         await match(from, to, ready, async () => await patchers.patchcsproj(to, "2.3.4"));
     });
 
+    test("Invalid csproj", async () => {
+        const done = await patchers.patchcsproj("invalid.csproj", "1.0");
+        expect(done).toEqual(false);
+    });
+
     test("Patch npm package.json", async () => {
         const from = "files/npm/package.json";
         const to = "files/npm/package.edit.json";
         const ready = "files/npm/package.ready.json";
 
         await match(from, to, ready, async () => await patchers.patchnpm(to, "2.3.4"));
+    });
+
+    test("Invalid npm package.json", async () => {
+        const done = await patchers.patchnpm("invalid.json", "1.0");
+        expect(done).toEqual(false);
     });
 
     test("Patch setup.py", async () => {
@@ -46,6 +56,11 @@ describe("patchers", () => {
         await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
     });
 
+    test("Invalid setup.py", async () => {
+        const done = await patchers.patchsetuppy("invalid.py", "1.0");
+        expect(done).toEqual(false);
+    });
+
     test("Patch __init__.py", async () => {
         const from = "files/initpy/__init__.py";
         const to = "files/initpy/__init__.edit.py";
@@ -54,11 +69,21 @@ describe("patchers", () => {
         await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
     });
 
+    test("Invalid __init__.py", async () => {
+        const done = await patchers.patchinitpy("invalid.py", "1.0");
+        expect(done).toEqual(false);
+    });
+
     test("Patch fxmanifest.lua", async () => {
         const from = "files/fxmanifest/fxmanifest.lua";
         const to = "files/fxmanifest/fxmanifest.edit.lua";
         const ready = "files/fxmanifest/fxmanifest.ready.lua";
 
         await match(from, to, ready, async () => await patchers.patchfxmanifest(to, "2.3.4"));
+    });
+
+    test("Invalid fxmanifest.lua", async () => {
+        const done = await patchers.patchfxmanifest("invalid.lua", "1.0");
+        expect(done).toEqual(false);
     });
 });
