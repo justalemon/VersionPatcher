@@ -9,7 +9,15 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "priority: p3 low"
+      - "status: acknowledged"
+      - "type: dependencies"
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
       interval: "daily"
+    labels:
+      - "priority: p3 low"
+      - "status: acknowledged"
+      - "type: dependencies"
