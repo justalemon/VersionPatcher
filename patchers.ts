@@ -43,7 +43,7 @@ async function patchWithRegex(file: string, version: string, regex: RegExp)
 
 export async function patchcsproj(glob_str: string, version: string)
 {
-    var patched = false;
+    let patched = false;
 
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
@@ -85,7 +85,7 @@ export async function patchcsproj(glob_str: string, version: string)
 
 export async function patchnpm(glob_str: string, version: string)
 {
-    var patched = false;
+    let patched = false;
 
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
@@ -106,7 +106,7 @@ export async function patchnpm(glob_str: string, version: string)
 
 export async function patchsetuppy(glob_str: string, version: string)
 {
-    var patched = false;
+    let patched = false;
 
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
@@ -120,7 +120,7 @@ export async function patchsetuppy(glob_str: string, version: string)
 
 export async function patchinitpy(glob_str: string, version: string)
 {
-    var patched = false;
+    let patched = false;
 
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
@@ -134,7 +134,7 @@ export async function patchinitpy(glob_str: string, version: string)
 
 export async function patchfxmanifest(glob_str: string, version: string)
 {
-    var patched = false;
+    let patched = false;
 
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
