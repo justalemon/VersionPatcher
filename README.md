@@ -50,7 +50,7 @@ There are also a couple of outputs that you can access from your workflow:
 |---------|--------------------------------------------------------------------------------------------|
 | version | The trimmed version (without the v/V at the beginning or trailing whitespaces, since v0.4) |
 
-[actions-img]: https://img.shields.io/github/workflow/status/justalemon/VersionPatcher/Build%20Action?label=github%20actions
+[actions-img]: https://img.shields.io/github/actions/workflow/status/justalemon/VersionPatcher/main.yml?branch=master&label=actions
 [actions-url]: https://github.com/justalemon/VersionPatcher/actions
 [patreon-img]: https://img.shields.io/badge/support-patreon-FF424D.svg
 [patreon-url]: https://www.patreon.com/lemonchan
