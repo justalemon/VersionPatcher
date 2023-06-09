@@ -13,9 +13,13 @@ enum VersionType {
 // *should* comply with PEP440
 const regex_version = "v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?";
 
-const regex_setup = new RegExp("version( ?)=( ?)([\"'])" + regex_version + "([\"'])");
-const regex_init = new RegExp("__version__( ?)=( ?)([\"'])" + regex_version + "([\"'])");
-const regex_fxmanifest = new RegExp("version( )([\"'])" + regex_version + "([\"'])");
+const regexes = {
+    [VersionType.CSProject]: null,
+    [VersionType.NPM]: null,
+    [VersionType.SetupPython]: new RegExp("version( ?)=( ?)([\"'])" + regex_version + "([\"'])"),
+    [VersionType.InitPython]: new RegExp("__version__( ?)=( ?)([\"'])" + regex_version + "([\"'])"),
+    [VersionType.CFXManifest]: new RegExp("version( )([\"'])" + regex_version + "([\"'])")
+}
 
 async function patchWithRegex(file: string, version: string, regex: RegExp)
 {
@@ -121,7 +125,7 @@ export async function patchsetuppy(glob_str: string, version: string)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching setup.py version in file ${file}`);
-        await patchWithRegex(file, version, regex_setup);
+        await patchWithRegex(file, version, regexes[VersionType.SetupPython]);
         patched = true;
     }
 
@@ -135,7 +139,7 @@ export async function patchinitpy(glob_str: string, version: string)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching __init__.py version in file ${file}`);
-        await patchWithRegex(file, version, regex_init);
+        await patchWithRegex(file, version, regexes[VersionType.InitPython]);
         patched = true;
     }
 
@@ -149,7 +153,7 @@ export async function patchfxmanifest(glob_str: string, version: string)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching fxmanifest.lua version in file ${file}`);
-        await patchWithRegex(file, version, regex_fxmanifest);
+        await patchWithRegex(file, version, regexes[VersionType.CFXManifest]);
         patched = true;
     }
 
