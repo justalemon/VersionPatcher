@@ -10,14 +10,13 @@ export enum VersionType {
 }
 
 // *should* comply with PEP440
-const regex_version = "v?((?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?)";
-
+const version = "v?((?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?)";
 const regexes = {
-    [VersionType.CSProject]: new RegExp("(<Version>)" + regex_version + "(</Version>)"),
-    [VersionType.NPM]: new RegExp("(\"version\": *\")" + regex_version + "(\")"),
-    [VersionType.SetupPython]: new RegExp("(version ?= ?[\"'])" + regex_version + "([\"'])"),
-    [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + regex_version + "([\"'])"),
-    [VersionType.CFXManifest]: new RegExp("(version [\"'])" + regex_version + "([\"'])")
+    [VersionType.CSProject]: new RegExp("(<Version>)" + version + "(</Version>)"),
+    [VersionType.NPM]: new RegExp("(\"version\": *\")" + version + "(\")"),
+    [VersionType.SetupPython]: new RegExp("(version ?= ?[\"'])" + version + "([\"'])"),
+    [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + version + "([\"'])"),
+    [VersionType.CFXManifest]: new RegExp("(version [\"'])" + version + "([\"'])")
 };
 
 async function patchWithRegex(file: string, version: string, versionType: VersionType)
