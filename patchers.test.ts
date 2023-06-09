@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { patch, patchcsproj, patchnpm, VersionType } from "./patchers";
+import {patch, patchcsproj, VersionType} from "./patchers";
 
 type NoParamsCallback = () => void;
 
@@ -40,11 +40,11 @@ describe("patchers", () => {
         const to = "files/npm/package.edit.json";
         const ready = "files/npm/package.ready.json";
 
-        await match(from, to, ready, async () => await patchnpm(to, "2.3.4"));
+        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.NPM));
     });
 
     test("Invalid npm package.json", async () => {
-        const done = await patchnpm("invalid.json", "1.0");
+        const done = await patch("invalid.json", "1.0", VersionType.NPM);
         expect(done).toEqual(false);
     });
 

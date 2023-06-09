@@ -15,7 +15,7 @@ const regex_version = "v?((?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alp
 
 const regexes = {
     [VersionType.CSProject]: null,
-    [VersionType.NPM]: null,
+    [VersionType.NPM]: new RegExp("(\"version\": *\")" + regex_version + "(\")"),
     [VersionType.SetupPython]: new RegExp("(version ?= ?[\"'])" + regex_version + "([\"'])"),
     [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + regex_version + "([\"'])"),
     [VersionType.CFXManifest]: new RegExp("(version [\"'])" + regex_version + "([\"'])")
@@ -97,27 +97,6 @@ export async function patchcsproj(glob_str: string, version: string)
 
             patched = true;
         });
-    }
-
-    return patched;
-}
-
-export async function patchnpm(glob_str: string, version: string)
-{
-    let patched = false;
-
-    for await (const file of (await glob.create(glob_str)).globGenerator())
-    {
-        console.log(`Patching package.json version in file ${file}`);
-
-        const contents = fs.readFileSync(file).toString();
-        const json = JSON.parse(contents);
-
-        json["version"] = version;
-
-        fs.writeFileSync(file, JSON.stringify(json, null, 4));
-
-        patched = true;
     }
 
     return patched;

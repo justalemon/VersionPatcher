@@ -57,7 +57,7 @@ async function run() {
 
         if (npm)
         {
-            const npm_done = await patchers.patchnpm(npm, version);
+            const npm_done = await patchers.patch(npm, version, VersionType.NPM);
             if (!npm_done)
             {
                 throw "Couldn't find any npm files to match";
