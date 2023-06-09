@@ -11,14 +11,14 @@ enum VersionType {
 }
 
 // *should* comply with PEP440
-const regex_version = "v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?";
+const regex_version = "v?((?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?)";
 
 const regexes = {
     [VersionType.CSProject]: null,
     [VersionType.NPM]: null,
-    [VersionType.SetupPython]: new RegExp("version( ?)=( ?)([\"'])" + regex_version + "([\"'])"),
-    [VersionType.InitPython]: new RegExp("__version__( ?)=( ?)([\"'])" + regex_version + "([\"'])"),
-    [VersionType.CFXManifest]: new RegExp("version( )([\"'])" + regex_version + "([\"'])")
+    [VersionType.SetupPython]: new RegExp("(version ?= ?[\"'])" + regex_version + "([\"'])"),
+    [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + regex_version + "([\"'])"),
+    [VersionType.CFXManifest]: new RegExp("(version [\"'])" + regex_version + "([\"'])")
 }
 
 async function patchWithRegex(file: string, version: string, versionType: VersionType)
@@ -32,30 +32,15 @@ async function patchWithRegex(file: string, version: string, versionType: Versio
     const contents = fs.readFileSync(file, "utf-8");
     const matches = regex.exec(contents);
 
-    if (contents.search(regex) === -1 || matches == null)
+    if (matches == null)
     {
         throw `No match found on ${file}`;
     }
+    
+    const start = matches[1]
+    const end = matches[3]
 
-    const one = matches[1];
-    let two = matches[2];
-    let three = matches[3];
-    let four = matches[4];
-    let equals = "=";
-
-    if (typeof four === "undefined")
-    {
-        four = three;
-        three = two;
-        two = one;
-        equals = "";
-    }
-
-    const spaceLeft = (one === " " || two === " ") ? " " : "";
-    const spaceRight = equals ? spaceLeft : "";
-    const quote = (three === "\"" && four === "\"") ? "\"" : "'";
-
-    const madeVersion = `version${spaceLeft}${equals}${spaceRight}${quote}${version}${quote}`;
+    const madeVersion = `${start}${version}${end}`;
     const newContents = contents.replace(regex, madeVersion);
 
     fs.writeFileSync(file, newContents);
