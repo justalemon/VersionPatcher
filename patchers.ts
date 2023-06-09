@@ -46,6 +46,20 @@ async function patchWithRegex(file: string, version: string, versionType: Versio
     fs.writeFileSync(file, newContents);
 }
 
+export async function patch(glob_str: string, version: string, versionType: VersionType)
+{
+    let patched = false;
+
+    for await (const file of (await glob.create(glob_str)).globGenerator())
+    {
+        console.log(`Patching ${versionType} version in file ${file}`);
+        await patchWithRegex(file, version, versionType);
+        patched = true;
+    }
+
+    return patched;
+}
+
 export async function patchcsproj(glob_str: string, version: string)
 {
     let patched = false;
@@ -103,48 +117,6 @@ export async function patchnpm(glob_str: string, version: string)
 
         fs.writeFileSync(file, JSON.stringify(json, null, 4));
 
-        patched = true;
-    }
-
-    return patched;
-}
-
-export async function patchsetuppy(glob_str: string, version: string)
-{
-    let patched = false;
-
-    for await (const file of (await glob.create(glob_str)).globGenerator())
-    {
-        console.log(`Patching setup.py version in file ${file}`);
-        await patchWithRegex(file, version, VersionType.SetupPython);
-        patched = true;
-    }
-
-    return patched;
-}
-
-export async function patchinitpy(glob_str: string, version: string)
-{
-    let patched = false;
-
-    for await (const file of (await glob.create(glob_str)).globGenerator())
-    {
-        console.log(`Patching __init__.py version in file ${file}`);
-        await patchWithRegex(file, version, VersionType.InitPython);
-        patched = true;
-    }
-
-    return patched;
-}
-
-export async function patchfxmanifest(glob_str: string, version: string)
-{
-    let patched = false;
-
-    for await (const file of (await glob.create(glob_str)).globGenerator())
-    {
-        console.log(`Patching fxmanifest.lua version in file ${file}`);
-        await patchWithRegex(file, version, VersionType.CFXManifest);
         patched = true;
     }
 

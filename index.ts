@@ -1,6 +1,7 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import * as patchers from "./patchers";
+import {VersionType} from "./patchers";
 import {ReleaseEvent} from "@octokit/webhooks-definitions/schema";
 
 function toBoolean(input: string) {
@@ -65,7 +66,7 @@ async function run() {
 
         if (setuppy)
         {
-            const setuppy_done = await patchers.patchsetuppy(setuppy, version);
+            const setuppy_done = await patchers.patch(setuppy, version, VersionType.SetupPython);
             if (!setuppy_done)
             {
                 throw "Couldn't find any setup.py files to match";
@@ -74,7 +75,7 @@ async function run() {
 
         if (initpy)
         {
-            const initpy_done = await patchers.patchinitpy(initpy, version);
+            const initpy_done = await patchers.patch(initpy, version, VersionType.InitPython);
             if (!initpy_done)
             {
                 throw "Couldn't find any __init__.py files to match";
@@ -83,7 +84,7 @@ async function run() {
 
         if (fxmanifest)
         {
-            const fxmanifest_done = await patchers.patchinitpy(fxmanifest, version);
+            const fxmanifest_done = await patchers.patch(fxmanifest, version, VersionType.CFXManifest);
             if (!fxmanifest_done)
             {
                 throw "Couldn't find any fxmanifest.lua files to match";

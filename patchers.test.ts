@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import * as patchers from "./patchers";
+import { patch, patchcsproj, patchnpm, VersionType } from "./patchers";
 
 type NoParamsCallback = () => void;
 
@@ -27,11 +27,11 @@ describe("patchers", () => {
         const to = "files/csproj/TestProject.Edit.csproj";
         const ready = "files/csproj/TestProject.Ready.csproj";
 
-        await match(from, to, ready, async () => await patchers.patchcsproj(to, "2.3.4"));
+        await match(from, to, ready, async () => await patchcsproj(to, "2.3.4"));
     });
 
     test("Invalid csproj", async () => {
-        const done = await patchers.patchcsproj("invalid.csproj", "1.0");
+        const done = await patchcsproj("invalid.csproj", "1.0");
         expect(done).toEqual(false);
     });
 
@@ -40,11 +40,11 @@ describe("patchers", () => {
         const to = "files/npm/package.edit.json";
         const ready = "files/npm/package.ready.json";
 
-        await match(from, to, ready, async () => await patchers.patchnpm(to, "2.3.4"));
+        await match(from, to, ready, async () => await patchnpm(to, "2.3.4"));
     });
 
     test("Invalid npm package.json", async () => {
-        const done = await patchers.patchnpm("invalid.json", "1.0");
+        const done = await patchnpm("invalid.json", "1.0");
         expect(done).toEqual(false);
     });
 
@@ -53,11 +53,11 @@ describe("patchers", () => {
         const to = "files/setuppy/setup.edit.py";
         const ready = "files/setuppy/setup.ready.py";
 
-        await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
+        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.SetupPython));
     });
 
     test("Invalid setup.py", async () => {
-        const done = await patchers.patchsetuppy("invalid.py", "1.0");
+        const done = await patch("invalid.py", "1.0", VersionType.SetupPython);
         expect(done).toEqual(false);
     });
 
@@ -66,11 +66,11 @@ describe("patchers", () => {
         const to = "files/initpy/__init__.edit.py";
         const ready = "files/initpy/__init__.ready.py";
 
-        await match(from, to, ready, async () => await patchers.patchsetuppy(to, "2.3.4"));
+        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.InitPython));
     });
 
     test("Invalid __init__.py", async () => {
-        const done = await patchers.patchinitpy("invalid.py", "1.0");
+        const done = await patch("invalid.py", "1.0", VersionType.InitPython);
         expect(done).toEqual(false);
     });
 
@@ -79,11 +79,11 @@ describe("patchers", () => {
         const to = "files/fxmanifest/fxmanifest.edit.lua";
         const ready = "files/fxmanifest/fxmanifest.ready.lua";
 
-        await match(from, to, ready, async () => await patchers.patchfxmanifest(to, "2.3.4"));
+        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.CFXManifest));
     });
 
     test("Invalid fxmanifest.lua", async () => {
-        const done = await patchers.patchfxmanifest("invalid.lua", "1.0");
+        const done = await patch("invalid.lua", "1.0", VersionType.CFXManifest);
         expect(done).toEqual(false);
     });
 });
