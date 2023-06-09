@@ -2,6 +2,14 @@ import * as fs from "fs";
 import * as glob from "@actions/glob";
 import xml2js from "xml2js";
 
+enum VersionType {
+    CSProject = 0,
+    NPM = 1,
+    SetupPython = 2,
+    InitPython = 3,
+    CFXManifest = 4
+}
+
 // *should* comply with PEP440
 const regex_version = "v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?";
 
