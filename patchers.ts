@@ -18,13 +18,20 @@ const regexes = {
     [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + version + "([\"'])"),
     [VersionType.CFXManifest]: new RegExp("(version [\"'])" + version + "([\"'])")
 };
+const names = {
+    [VersionType.CSProject]: ".csproj",
+    [VersionType.NPM]: "package.json for npm",
+    [VersionType.SetupPython]: "setuptools setup.py",
+    [VersionType.InitPython]: "__init__.py for Python Package",
+    [VersionType.CFXManifest]: "fxmanifest.lua for cfx.re"
+};
 
 async function patchWithRegex(file: string, version: string, versionType: VersionType)
 {
     const regex: null | RegExp = regexes[versionType];
     
     if (regex === null) {
-        throw `Invalid version type: ${versionType}`;
+        throw new Error(`Invalid version type: ${versionType}`);
     }
     
     const contents = fs.readFileSync(file, "utf-8");
@@ -32,7 +39,7 @@ async function patchWithRegex(file: string, version: string, versionType: Versio
 
     if (matches == null)
     {
-        throw `No match found on ${file}`;
+        throw new Error(`No match found on ${file} for type ${names[versionType]}`);
     }
     
     const newContents = contents.replaceAll(new RegExp(regex, "g"), `$1${version}$3`);
@@ -42,14 +49,15 @@ async function patchWithRegex(file: string, version: string, versionType: Versio
 
 export async function patch(glob_str: string, version: string, versionType: VersionType)
 {
-    let patched = false;
-
-    for await (const file of (await glob.create(glob_str)).globGenerator())
-    {
-        console.log(`Patching ${versionType} version in file ${file}`);
-        await patchWithRegex(file, version, versionType);
-        patched = true;
+    const files = await (await glob.create(glob_str)).glob();
+    
+    if (files.length == 0) {
+        throw new Error(`No files found matching glob ${glob_str} for format ${names[versionType]}`);
     }
 
-    return patched;
+    for (const file of files)
+    {
+        console.log(`Patching ${file} as ${names[versionType]}`);
+        await patchWithRegex(file, version, versionType);
+    }
 }

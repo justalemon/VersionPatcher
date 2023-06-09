@@ -28,7 +28,8 @@ async function run() {
 
         if (!version)
         {
-            throw "No version was specified to patch!";
+            core.error("No version was specified to patch!");
+            return;
         }
 
         if (toBoolean(core.getInput("trim")) && (version.indexOf("v") === 0 || version.indexOf("V") === 0))
@@ -53,11 +54,7 @@ async function run() {
                 continue;
             }
             
-            const success = await patchers.patch(glob, version, format);
-
-            if (!success) {
-                throw `Couldn't find any ${format} files to match`;
-            }
+            await patchers.patch(glob, version, format);
         }
     }
     catch (e)

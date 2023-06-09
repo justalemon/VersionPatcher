@@ -31,8 +31,7 @@ describe("patchers", () => {
     });
 
     test("Invalid csproj", async () => {
-        const done = await patch("invalid.csproj", "1.0", VersionType.CSProject);
-        expect(done).toEqual(false);
+        await expect(async () => await patch("invalid.csproj", "1.0", VersionType.CSProject)).rejects.toThrow();
     });
 
     test("Patch npm package.json", async () => {
@@ -44,8 +43,7 @@ describe("patchers", () => {
     });
 
     test("Invalid npm package.json", async () => {
-        const done = await patch("invalid.json", "1.0", VersionType.NPM);
-        expect(done).toEqual(false);
+        await expect(async () => await patch("invalid.json", "1.0", VersionType.NPM)).rejects.toThrow();
     });
 
     test("Patch setup.py", async () => {
@@ -57,8 +55,7 @@ describe("patchers", () => {
     });
 
     test("Invalid setup.py", async () => {
-        const done = await patch("invalid.py", "1.0", VersionType.SetupPython);
-        expect(done).toEqual(false);
+        await expect(async () => await patch("invalid.py", "1.0", VersionType.SetupPython)).rejects.toThrow();
     });
 
     test("Patch __init__.py", async () => {
@@ -70,8 +67,7 @@ describe("patchers", () => {
     });
 
     test("Invalid __init__.py", async () => {
-        const done = await patch("invalid.py", "1.0", VersionType.InitPython);
-        expect(done).toEqual(false);
+        await expect(async () => await patch("invalid.py", "1.0", VersionType.InitPython)).rejects.toThrow();
     });
 
     test("Patch fxmanifest.lua", async () => {
@@ -83,7 +79,6 @@ describe("patchers", () => {
     });
 
     test("Invalid fxmanifest.lua", async () => {
-        const done = await patch("invalid.lua", "1.0", VersionType.CFXManifest);
-        expect(done).toEqual(false);
+        await expect(async () => await patch("invalid.lua", "1.0", VersionType.CFXManifest)).rejects.toThrow();
     });
 });
