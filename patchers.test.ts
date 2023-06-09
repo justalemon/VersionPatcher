@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import {patch, patchcsproj, VersionType} from "./patchers";
+import {patch, VersionType} from "./patchers";
 
 type NoParamsCallback = () => void;
 
@@ -27,11 +27,11 @@ describe("patchers", () => {
         const to = "files/csproj/TestProject.Edit.csproj";
         const ready = "files/csproj/TestProject.Ready.csproj";
 
-        await match(from, to, ready, async () => await patchcsproj(to, "2.3.4"));
+        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.CSProject));
     });
 
     test("Invalid csproj", async () => {
-        const done = await patchcsproj("invalid.csproj", "1.0");
+        const done = await patch("invalid.csproj", "1.0", VersionType.CSProject);
         expect(done).toEqual(false);
     });
 

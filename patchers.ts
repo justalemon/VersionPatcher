@@ -1,6 +1,5 @@
 import * as fs from "fs";
 import * as glob from "@actions/glob";
-import xml2js from "xml2js";
 
 export enum VersionType {
     CSProject = 0,
@@ -14,7 +13,7 @@ export enum VersionType {
 const regex_version = "v?((?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?)";
 
 const regexes = {
-    [VersionType.CSProject]: null,
+    [VersionType.CSProject]: new RegExp("(<Version>)" + regex_version + "(</Version>)"),
     [VersionType.NPM]: new RegExp("(\"version\": *\")" + regex_version + "(\")"),
     [VersionType.SetupPython]: new RegExp("(version ?= ?[\"'])" + regex_version + "([\"'])"),
     [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + regex_version + "([\"'])"),
@@ -51,48 +50,6 @@ export async function patch(glob_str: string, version: string, versionType: Vers
         console.log(`Patching ${versionType} version in file ${file}`);
         await patchWithRegex(file, version, versionType);
         patched = true;
-    }
-
-    return patched;
-}
-
-export async function patchcsproj(glob_str: string, version: string)
-{
-    let patched = false;
-
-    for await (const file of (await glob.create(glob_str)).globGenerator())
-    {
-        console.log(`Patching csproj version in file ${file}`);
-
-        const contents = fs.readFileSync(file, "utf-8");
-
-        new xml2js.Parser({}).parseString(contents, (err, result) => {
-            if (err)
-            {
-                throw err;
-            }
-
-            let changed = false;
-
-            const array = result["Project"]["PropertyGroup"];
-            array.forEach((value: { [x: string]: string[]; }) => {
-                if (value.hasOwnProperty("Version"))
-                {
-                    value["Version"] = [version];
-                }
-                changed = true;
-            });
-
-            if (!changed)
-            {
-                throw `No Version tag found in ${file}`;
-            }
-
-            const xml = new xml2js.Builder({headless: true}).buildObject(result);
-            fs.writeFileSync(file, xml);
-
-            patched = true;
-        });
     }
 
     return patched;

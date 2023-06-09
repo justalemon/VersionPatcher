@@ -48,7 +48,7 @@ async function run() {
 
         if (csproj)
         {
-            const csproj_done = await patchers.patchcsproj(csproj, version);
+            const csproj_done = await patchers.patch(csproj, version, VersionType.CSProject);
             if (!csproj_done)
             {
                 throw "Couldn't find any csproj files to match";
