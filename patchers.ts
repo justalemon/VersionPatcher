@@ -21,8 +21,14 @@ const regexes = {
     [VersionType.CFXManifest]: new RegExp("version( )([\"'])" + regex_version + "([\"'])")
 }
 
-async function patchWithRegex(file: string, version: string, regex: RegExp)
+async function patchWithRegex(file: string, version: string, versionType: VersionType)
 {
+    const regex: null | RegExp = regexes[versionType];
+    
+    if (regex === null) {
+        throw `Invalid version type: ${versionType}`
+    }
+    
     const contents = fs.readFileSync(file, "utf-8");
     const matches = regex.exec(contents);
 
@@ -125,7 +131,7 @@ export async function patchsetuppy(glob_str: string, version: string)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching setup.py version in file ${file}`);
-        await patchWithRegex(file, version, regexes[VersionType.SetupPython]);
+        await patchWithRegex(file, version, VersionType.SetupPython);
         patched = true;
     }
 
@@ -139,7 +145,7 @@ export async function patchinitpy(glob_str: string, version: string)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching __init__.py version in file ${file}`);
-        await patchWithRegex(file, version, regexes[VersionType.InitPython]);
+        await patchWithRegex(file, version, VersionType.InitPython);
         patched = true;
     }
 
@@ -153,7 +159,7 @@ export async function patchfxmanifest(glob_str: string, version: string)
     for await (const file of (await glob.create(glob_str)).globGenerator())
     {
         console.log(`Patching fxmanifest.lua version in file ${file}`);
-        await patchWithRegex(file, version, regexes[VersionType.CFXManifest]);
+        await patchWithRegex(file, version, VersionType.CFXManifest);
         patched = true;
     }
 
