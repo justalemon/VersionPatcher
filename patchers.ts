@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as glob from "@actions/glob";
 import xml2js from "xml2js";
 
-enum VersionType {
+export enum VersionType {
     CSProject = 0,
     NPM = 1,
     SetupPython = 2,
