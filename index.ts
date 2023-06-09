@@ -39,55 +39,24 @@ async function run() {
 
         console.log(`Using Version ${version}`);
         core.setOutput("version", version);
+        
+        const patches: Record<VersionType, string> = {
+            [VersionType.CSProject]: core.getInput("csproj-files"),
+            [VersionType.NPM]: core.getInput("npm-files"),
+            [VersionType.SetupPython]: core.getInput("setuppy-files"),
+            [VersionType.InitPython]: core.getInput("initpy-files"),
+            [VersionType.CFXManifest]: core.getInput("fxmanifest-files")
+        };
 
-        const csproj = core.getInput("csproj-files");
-        const npm = core.getInput("npm-files");
-        const setuppy = core.getInput("setuppy-files");
-        const initpy = core.getInput("initpy-files");
-        const fxmanifest = core.getInput("fxmanifest-files");
-
-        if (csproj)
-        {
-            const csproj_done = await patchers.patch(csproj, version, VersionType.CSProject);
-            if (!csproj_done)
-            {
-                throw "Couldn't find any csproj files to match";
+        for (const [format, glob] of (Object.entries(patches) as unknown as ([VersionType, string])[])) {
+            if (!glob) {
+                continue;
             }
-        }
+            
+            const success = await patchers.patch(glob, version, format);
 
-        if (npm)
-        {
-            const npm_done = await patchers.patch(npm, version, VersionType.NPM);
-            if (!npm_done)
-            {
-                throw "Couldn't find any npm files to match";
-            }
-        }
-
-        if (setuppy)
-        {
-            const setuppy_done = await patchers.patch(setuppy, version, VersionType.SetupPython);
-            if (!setuppy_done)
-            {
-                throw "Couldn't find any setup.py files to match";
-            }
-        }
-
-        if (initpy)
-        {
-            const initpy_done = await patchers.patch(initpy, version, VersionType.InitPython);
-            if (!initpy_done)
-            {
-                throw "Couldn't find any __init__.py files to match";
-            }
-        }
-
-        if (fxmanifest)
-        {
-            const fxmanifest_done = await patchers.patch(fxmanifest, version, VersionType.CFXManifest);
-            if (!fxmanifest_done)
-            {
-                throw "Couldn't find any fxmanifest.lua files to match";
+            if (!success) {
+                throw `Couldn't find any ${format} files to match`;
             }
         }
     }
