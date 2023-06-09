@@ -37,11 +37,7 @@ async function patchWithRegex(file: string, version: string, versionType: Versio
         throw `No match found on ${file}`;
     }
     
-    const start = matches[1];
-    const end = matches[3];
-
-    const madeVersion = `${start}${version}${end}`;
-    const newContents = contents.replace(regex, madeVersion);
+    const newContents = contents.replaceAll(new RegExp(regex, "g"), `$1${version}$3`);
 
     fs.writeFileSync(file, newContents);
 }
