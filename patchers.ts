@@ -3,9 +3,11 @@ import * as glob from "@actions/glob";
 import xml2js from "xml2js";
 
 // *should* comply with PEP440
-const regex_setup = new RegExp("version( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
-const regex_init = new RegExp("__version__( ?)=( ?)([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
-const regex_fxmanifest = new RegExp("version( )([\"'])v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?([\"'])");
+const regex_version = "v?(?:[0-9]+!)?[0-9]+(?:.[0-9]+)*(?:[-_.]?(?:a|b|c|rc|alpha|beta|pre|preview)[-_.]?(?:[0-9]+)?)?(?:-[0-9]+|[-_.]?(?:post|rev|r)[-_.]?(?:[0-9]+)?)?(?:[-_.]?dev[-_.]?(?:[0-9]+)?)?(?:\\+[a-z0-9]+(?:[-_.][a-z0-9]+)*)?";
+
+const regex_setup = new RegExp("version( ?)=( ?)([\"'])" + regex_version + "([\"'])");
+const regex_init = new RegExp("__version__( ?)=( ?)([\"'])" + regex_version + "([\"'])");
+const regex_fxmanifest = new RegExp("version( )([\"'])" + regex_version + "([\"'])");
 
 async function patchWithRegex(file: string, version: string, regex: RegExp)
 {
