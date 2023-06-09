@@ -19,14 +19,14 @@ const regexes = {
     [VersionType.SetupPython]: new RegExp("(version ?= ?[\"'])" + regex_version + "([\"'])"),
     [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + regex_version + "([\"'])"),
     [VersionType.CFXManifest]: new RegExp("(version [\"'])" + regex_version + "([\"'])")
-}
+};
 
 async function patchWithRegex(file: string, version: string, versionType: VersionType)
 {
     const regex: null | RegExp = regexes[versionType];
     
     if (regex === null) {
-        throw `Invalid version type: ${versionType}`
+        throw `Invalid version type: ${versionType}`;
     }
     
     const contents = fs.readFileSync(file, "utf-8");
@@ -37,8 +37,8 @@ async function patchWithRegex(file: string, version: string, versionType: Versio
         throw `No match found on ${file}`;
     }
     
-    const start = matches[1]
-    const end = matches[3]
+    const start = matches[1];
+    const end = matches[3];
 
     const madeVersion = `${start}${version}${end}`;
     const newContents = contents.replace(regex, madeVersion);
