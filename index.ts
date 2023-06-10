@@ -1,7 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import * as patchers from "./patchers";
-import {VersionType} from "./patchers";
+import {patch, VersionType} from "./patchers";
 import {ReleaseEvent} from "@octokit/webhooks-definitions/schema";
 
 function toBoolean(input: string) {
@@ -55,7 +54,7 @@ async function run() {
                 continue;
             }
             
-            await patchers.patch(glob, version, format);
+            await patch(glob, version, format);
         }
     }
     catch (e)
