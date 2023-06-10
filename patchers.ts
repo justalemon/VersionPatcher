@@ -6,7 +6,8 @@ export enum VersionType {
     NPM = 1,
     SetupPython = 2,
     InitPython = 3,
-    CFXManifest = 4
+    CFXManifest = 4,
+    Gemspec = 5
 }
 
 // *should* comply with PEP440
@@ -16,14 +17,16 @@ const regexes = {
     [VersionType.NPM]: new RegExp("(\"version\": *\")" + version + "(\")"),
     [VersionType.SetupPython]: new RegExp("(version ?= ?[\"'])" + version + "([\"'])"),
     [VersionType.InitPython]: new RegExp("(__version__ ?= ?[\"'])" + version + "([\"'])"),
-    [VersionType.CFXManifest]: new RegExp("(version [\"'])" + version + "([\"'])")
+    [VersionType.CFXManifest]: new RegExp("(version [\"'])" + version + "([\"'])"),
+    [VersionType.Gemspec]: new RegExp("(spec\\.version *= *[\"'`])" + version + "([\"'`])")
 };
 const names = {
     [VersionType.CSProject]: ".csproj",
     [VersionType.NPM]: "package.json for npm",
     [VersionType.SetupPython]: "setuptools setup.py",
     [VersionType.InitPython]: "__init__.py for Python Package",
-    [VersionType.CFXManifest]: "fxmanifest.lua for cfx.re"
+    [VersionType.CFXManifest]: "fxmanifest.lua for cfx.re",
+    [VersionType.Gemspec]: "Bundler gemspec"
 };
 
 async function patchWithRegex(file: string, version: string, versionType: VersionType)

@@ -13,6 +13,7 @@ It supports the following project types:
 | Python                | setup.py        | build/setuptools |                              |
 | Python                | \_\_init\_\_.py | PEP440           |                              |
 | Lua                   | fxmanifest.lua  | cfx.re Platform  | For FiveM, RedM and LibertyM |
+| Ruby                  | *.gemspec       | Bundler          |                              |
 
 Please note that you need to have an existing dummy version for the script to pick detect.
 
@@ -43,6 +44,7 @@ There are a couple of inputs that you can change to tweak the patching process. 
 | setuppy-files    | optional    | The glob to use for finding Python/SetupTools setup.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)  |
 | initpy-files     | optional    | The glob to use for finding \_\_init\_\_.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)             |
 | fxmanifest-files | optional    | The glob to use for finding cfx.re fxmanifest.lua files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)       |
+| gemspec-files    | optional    | The glob to use for finding Bundler gemspec files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)             |
 
 There are also a couple of outputs that you can access from your workflow:
 

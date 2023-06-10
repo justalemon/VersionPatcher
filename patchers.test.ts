@@ -81,4 +81,16 @@ describe("patchers", () => {
     test("Invalid fxmanifest.lua", async () => {
         await expect(async () => await patch("invalid.lua", "1.0", VersionType.CFXManifest)).rejects.toThrow();
     });
+    
+    test("Patch .gemspec", async () => {
+        const from = "files/gemspec/octi.gemspec";
+        const to = "files/gemspec/octi.edit.gemspec";
+        const ready = "files/gemspec/octi.ready.gemspec";
+
+        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.Gemspec));
+    });
+
+    test("Invalid .gemspec", async () => {
+        await expect(async () => await patch("invalid.gemspec", "1.0", VersionType.Gemspec)).rejects.toThrow();
+    });
 });
