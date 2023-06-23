@@ -46,7 +46,8 @@ async function run() {
             [VersionType.SetupPython]: core.getInput("setuppy-files"),
             [VersionType.InitPython]: core.getInput("initpy-files"),
             [VersionType.CFXManifest]: core.getInput("fxmanifest-files"),
-            [VersionType.Gemspec]: core.getInput("gemspec-files")
+            [VersionType.Gemspec]: core.getInput("gemspec-files"),
+            [VersionType.PyProject]: core.getInput("pyproject-files")
         };
 
         for (const [format, glob] of (Object.entries(patches) as unknown as ([VersionType, string])[])) {
