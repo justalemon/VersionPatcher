@@ -11,6 +11,7 @@ It supports the following project types:
 | C#                    | *.csproj        | msbuild/dotnet   | VS 2017 and up only          |
 | JavaScript/TypeScript | package.json    | npm              |                              |
 | Python                | setup.py        | build/setuptools |                              |
+| Python                | pyproject.toml  | build/setuptools |                              |
 | Python                | \_\_init\_\_.py | PEP440           |                              |
 | Lua                   | fxmanifest.lua  | cfx.re Platform  | For FiveM, RedM and LibertyM |
 | Ruby                  | *.gemspec       | Bundler          |                              |
@@ -34,17 +35,18 @@ You will need to specify a glob to patch a specific type of version in a specifi
 
 There are a couple of inputs that you can change to tweak the patching process. They are specified in the with section and they are the following:
 
-| Name             | Requirement | Description                                                                                                                                                                |
-|------------------|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| version          | required    | The version to apply to the patched project, please make sure that the version that you are going to patch is compatible with the versioning used by your package manager  |
-| trim             | optional    | If the action will trim the v or V at the beginning of the version before applying it, this is set to true by default (since v0.2)                                         |
-| use-tag          | optional    | If the tag should be used as the version number on Release (since v0.3)                                                                                                    |
-| csproj-files     | optional    | The glob to use for finding C# projects, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                        |
-| npm-files        | optional    | The glob to use for finding npm package.json files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)             |
-| setuppy-files    | optional    | The glob to use for finding Python/SetupTools setup.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)   |
-| initpy-files     | optional    | The glob to use for finding \_\_init\_\_.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)              |
-| fxmanifest-files | optional    | The glob to use for finding cfx.re fxmanifest.lua files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)        |
-| gemspec-files    | optional    | The glob to use for finding Bundler gemspec files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob) (since v0.6) |
+| Name             | Requirement | Description                                                                                                                                                                                 |
+|------------------|-------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| version          | required    | The version to apply to the patched project, please make sure that the version that you are going to patch is compatible with the versioning used by your package manager                   |
+| trim             | optional    | If the action will trim the v or V at the beginning of the version before applying it, this is set to true by default (since v0.2)                                                          |
+| use-tag          | optional    | If the tag should be used as the version number on Release (since v0.3)                                                                                                                     |
+| csproj-files     | optional    | The glob to use for finding C# projects, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                                         |
+| npm-files        | optional    | The glob to use for finding npm package.json files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                              |
+| setuppy-files    | optional    | The glob to use for finding Python/SetupTools setup.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                    |
+| pyproject-files  | optional    | The glob to use for finding Python/SetupTools pyproject.toml files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob) (since v0.7) |
+| initpy-files     | optional    | The glob to use for finding \_\_init\_\_.py files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                               |
+| fxmanifest-files | optional    | The glob to use for finding cfx.re fxmanifest.lua files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob)                         |
+| gemspec-files    | optional    | The glob to use for finding Bundler gemspec files, it needs to be compatible with [@actions/glob](https://github.com/actions/toolkit/tree/main/packages/glob) (since v0.6)                  |
 
 There are also a couple of outputs that you can access from your workflow:
 
