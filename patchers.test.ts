@@ -93,4 +93,16 @@ describe("patchers", () => {
     test("Invalid .gemspec", async () => {
         await expect(async () => await patch("invalid.gemspec", "1.0", VersionType.Gemspec)).rejects.toThrow();
     });
+    
+    test("Patch pyproject.toml", async () => {
+        const from = "files/pyproject/pyproject.toml";
+        const to = "files/pyproject/pyproject.edit.toml";
+        const ready = "files/pyproject/pyproject.ready.toml";
+
+        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.PyProject));
+    });
+
+    test("Invalid pyproject.toml", async () => {
+        await expect(async () => await patch("invalid.toml", "1.0", VersionType.PyProject)).rejects.toThrow();
+    });
 });
