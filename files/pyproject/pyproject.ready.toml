@@ -1,0 +1,133 @@
+[build-system]
+requires = [
+    "setuptools>=68.0.0",
+    "wheel>=0.40.0"
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "leekbot"
+version = "2.3.4"
+description = "Lemon's Discord Bot Framework"
+authors = [
+    { name = "Lemon", email = "justlemoncl@gmail.com" }
+]
+classifiers = [
+    "Development Status :: 2 - Pre-Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Communications",
+    "Topic :: Communications :: Chat"
+]
+dependencies = [
+    "py-cord[speed]>=2.4.1,<3.0.0",
+    "aiomysql>=0.2.0,<1.0.0",
+    "python-dotenv>=1.0.0,<2.0.0",
+    "aiohttp>=3.8.4,<4.0.0"
+]
+requires-python = ">=3.8"
+dynamic = [
+    "readme"
+]
+
+[project.urls]
+Homepage = "https://github.com/LeekByLemon/Leek"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.0.274,<1.0.0",
+    "build>=0.0.274,<1.0.0",
+]
+
+[tool.setuptools]
+packages = [
+    "leek"
+]
+
+[tool.setuptools.dynamic]
+readme = { file = ["README.md"], content-type = "text/markdown" }
+
+[tool.setuptools.package-data]
+"*" = [
+    "*.json"
+]
+
+[tool.ruff]
+line-length = 120
+ignore = [
+    "D401",
+    "D205",
+    "D212",
+    "D200",
+    "D204",
+    "D203",
+    "ANN002",
+    "ANN003",
+    "ANN101",
+    "ANN204",
+    "COM812",
+    "PLR2004"
+]
+select = [
+    "F", # pyflakes
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "C", # mccabe complexity
+    "I", # isort
+    "N", # naming
+    "D", # pydocstyle
+    "ANN", # annotations
+    "ASYNC", # async
+    "S", # bandit
+    "BLE", # blind except
+    "B", # bugbear
+    "A", # builtins
+    "COM", # commas
+    "C4", # comprehensions
+    "DTZ", # datetimez
+    "T10", # debugger
+    "G", # logging format
+    "INP", # no pep420
+    "PIE", # pie? misc checks
+    "T20", # print
+    "Q", # quotes
+    "RSE", # raise's
+    "RET", # return values
+    "SLF", # private members
+    "SIM", # simplify calls
+    "TID", # tidy imports
+    "TCH", # type checking
+    "INT", # get text
+    "ARG", # unused arguments
+    "PTH", # use pathlib instead
+    "TD", # to do's
+    "FIX", # fix me style messages
+    "ERA", # eradicate commented code
+    "PGH", # pygrep hooks
+    "PLC", # pylint: convention
+    "PLE", # pylint: errors
+    "PLR", # pylint: refactor
+    "PLW", # pylint: warnings
+    "TRY", # tryceratops, aka exceptions
+    "RUF", # ruff specific
+]
+
+[tool.ruff.per-file-ignores]
+"__init__.py" = [
+    "F401",
+    "F403",
+    "D104"
+]
+"setup.py" = [
+    "D100"
+]
