@@ -16,7 +16,7 @@ It supports the following project types:
 | Lua                   | fxmanifest.lua  | cfx.re Platform  | For FiveM, RedM and LibertyM |
 | Ruby                  | *.gemspec       | Bundler          |                              |
 
-Please note that you need to have an existing dummy version for the script to pick detect.
+Please note that you need to have an existing dummy version for the script to detect.
 
 ## Installation
 
