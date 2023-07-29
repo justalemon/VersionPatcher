@@ -5,8 +5,8 @@
     "main": "lib/action.js",
     "scripts": {
         "build": "npx tsc && npx ncc build",
-        "lint": "eslint .",
-        "test": "jest"
+        "lint": "npx eslint .",
+        "test": "npx jest"
     },
     "repository": {
         "type": "git",
