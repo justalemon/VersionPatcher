@@ -11,14 +11,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Select Node Version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v3.7.0
         with:
           node-version: 16
-          cache: npm
+          cache: pnpm
       - name: Install Dependencies
-        run: npm install
+        run: pnpm install
       - name: Lint with eslint
-        run: npm run lint
+        run: pnpm run lint
   build:
     runs-on: ubuntu-22.04
     needs:
