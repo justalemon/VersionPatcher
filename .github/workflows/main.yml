@@ -8,73 +8,66 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Select Node Version
-        uses: actions/setup-node@v3.7.0
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          standalone: true
+          run_install: true
+      - uses: actions/setup-node@v3.7.0
         with:
           node-version: 16
           cache: pnpm
-      - name: Install Dependencies
-        run: pnpm install
-      - name: Lint with eslint
-        run: pnpm run lint
+      - run: pnpm run lint
   build:
     runs-on: ubuntu-22.04
     needs:
       - lint
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Select Node Version
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          standalone: true
+          run_install: true
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: npm
-      - name: Cache output
-        uses: actions/cache@v3
+          cache: pnpm
+      - uses: actions/cache@v3
         env:
           cache-name: cache-build
         with:
           path: dist/
           key: ${{ runner.os }}-build-${{ github.run_id }}
-      - name: Install Dependencies
-        run: npm install
-      - name: Build with ncc
-        run: npm run build
+      - run: pnpm run build
   test:
     runs-on: ubuntu-22.04
     needs:
       - lint
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Select Node Version
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v3
+      - uses: pnpm/action-setup@v2
+        with:
+          standalone: true
+          run_install: true
+      - uses: actions/setup-node@v3
         with:
           node-version: 16
-          cache: npm
-      - name: Install Dependencies
-        run: npm install
-      - name: Test
-        run: npm run test
+          cache: pnpm
+      - run: pnpm run test
   run:
     runs-on: ubuntu-22.04
     needs:
       - build
       - test
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-      - name: Cache output
-        uses: actions/cache@v3
+      - uses: actions/checkout@v3
+      - uses: actions/cache@v3
         env:
           cache-name: cache-build
         with:
           path: dist/
           key: ${{ runner.os }}-build-${{ github.run_id }}
-      - name: Run the Action
-        uses: ./
+      - uses: ./
         with:
           version: 5.5.2
           csproj-files: files/csproj/TestProject.csproj
@@ -86,27 +79,23 @@ jobs:
       - run
     if: github.ref == 'refs/heads/master'
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           persist-credentials: false
           fetch-depth: 0
-      - name: Cache output
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
         env:
           cache-name: cache-build
         with:
           path: dist/
           key: ${{ runner.os }}-build-${{ github.run_id }}
-      - name: Commit the changes
-        continue-on-error: true
+      - continue-on-error: true
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           git add dist/*
           git commit -m "Added changes from ${{ github.run_id }} [actions skip]" -a
-      - name: Push back to repo
-        continue-on-error: true
+      - continue-on-error: true
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ github.token }}
