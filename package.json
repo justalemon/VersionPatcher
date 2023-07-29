@@ -2,7 +2,11 @@
     "name": "versionpatcher",
     "version": "1.0.0",
     "description": "GitHub Action for patching the version on C# (csproj VS2017+), Node (package.json), Python (setup.py) and others",
-    "main": "lib/action.js",
+    "main": "lib/index.js",
+    "types": "lib/index.t.js",
+    "files": [
+        "lib"
+    ],
     "scripts": {
         "build": "npx tsc && npx ncc build",
         "lint": "npx eslint .",
