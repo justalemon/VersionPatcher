@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import {patch, VersionType} from "./patchers";
+import { patch, VersionType } from "./patchers";
 
 type NoParamsCallback = () => void;
 

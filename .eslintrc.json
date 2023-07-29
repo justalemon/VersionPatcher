@@ -19,6 +19,10 @@
     },
     "rules": {
         "no-prototype-builtins": "off",
+        "@typescript-eslint/object-curly-spacing": [
+            "error",
+            "always"
+        ],
         "indent": [
             "error",
             4
