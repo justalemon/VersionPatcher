@@ -5,24 +5,19 @@ on:
       - "dist/**"
 
 jobs:
+  strategy:
   lint:
     runs-on: ubuntu-22.04
-    strategy: 
-      matrix:
-        node-version:
-          - 16
-        pnpm-version:
-          - 8
     steps:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
-          version: ${{ matrix.pnpm-version }}
+          version: 8
           standalone: true
           run_install: true
       - uses: actions/setup-node@v3.7.0
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           cache: pnpm
       - run: pnpm run lint
   build:
@@ -33,12 +28,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
-          version: ${{ matrix.pnpm-version }}
+          version: 8
           standalone: true
           run_install: true
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           cache: pnpm
       - uses: actions/cache@v3
         env:
@@ -55,12 +50,12 @@ jobs:
       - uses: actions/checkout@v3
       - uses: pnpm/action-setup@v2
         with:
-          version: ${{ matrix.pnpm-version }}
+          version: 8
           standalone: true
           run_install: true
       - uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: 16
           cache: pnpm
       - run: pnpm run test
   run:
