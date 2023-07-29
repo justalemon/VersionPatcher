@@ -1,7 +1,7 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { patch, VersionType } from "./patchers";
-import { ReleaseEvent } from "@octokit/webhooks-definitions/schema";
+import { ReleaseEvent } from "@octokit/webhooks-types/schema";
 
 function toBoolean(input: string) {
     return input.toLowerCase().trim() === "true";

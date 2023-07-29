@@ -16,9 +16,9 @@ dependencies:
     version: 0.4.0
 
 devDependencies:
-  '@octokit/webhooks-definitions':
-    specifier: ^3.67.3
-    version: 3.67.3
+  '@octokit/webhooks-types':
+    specifier: ^7.1.0
+    version: 7.1.0
   '@types/jest':
     specifier: ^28.1.8
     version: 28.1.8
@@ -847,9 +847,8 @@ packages:
       '@octokit/openapi-types': 12.11.0
     dev: false
 
-  /@octokit/webhooks-definitions@3.67.3:
-    resolution: {integrity: sha512-do4Z1r2OVhuI0ihJhQ8Hg+yPWnBYEBNuFNCrvtPKoYT1w81jD7pBXgGe86lYuuNirkDHb0Nxt+zt4O5GiFJfgA==}
-    deprecated: Use @octokit/webhooks-types, @octokit/webhooks-schemas, or @octokit/webhooks-examples instead. See https://github.com/octokit/webhooks/issues/447
+  /@octokit/webhooks-types@7.1.0:
+    resolution: {integrity: sha512-y92CpG4kFFtBBjni8LHoV12IegJ+KFxLgKRengrVjKmGE5XMeCuGvlfRe75lTRrgXaG6XIWJlFpIDTlkoJsU8w==}
     dev: true
 
   /@sinclair/typebox@0.24.51:
