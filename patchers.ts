@@ -22,17 +22,8 @@ const regexes = {
     [VersionType.Gemspec]: new RegExp("(spec\\.version *= *[\"'`])" + version + "([\"'`])"),
     [VersionType.PyProject]: new RegExp("(version = \")" + version + "(\")")
 };
-const names = {
-    [VersionType.CSProject]: ".csproj",
-    [VersionType.NPM]: "package.json for npm",
-    [VersionType.SetupPython]: "setuptools setup.py",
-    [VersionType.InitPython]: "__init__.py for Python Package",
-    [VersionType.CFXManifest]: "fxmanifest.lua for cfx.re",
-    [VersionType.Gemspec]: "Bundler gemspec",
-    [VersionType.PyProject]: "pyproject.toml"
-};
 
-async function patchWithRegex(file: string, version: string, versionType: VersionType)
+export async function patch(file: string, version: string, versionType: VersionType)
 {
     const regex: null | RegExp = regexes[versionType];
     
@@ -45,25 +36,10 @@ async function patchWithRegex(file: string, version: string, versionType: Versio
 
     if (matches == null)
     {
-        throw new Error(`No match found on ${file} for type ${names[versionType]}`);
+        throw new Error(`No match found on ${file} for type ${versionType}`);
     }
     
     const newContents = contents.replaceAll(new RegExp(regex, "g"), `$1${version}$3`);
 
     fs.writeFileSync(file, newContents);
-}
-
-export async function patch(glob_str: string, version: string, versionType: VersionType)
-{
-    const files = await (await glob.create(glob_str)).glob();
-    
-    if (files.length == 0) {
-        throw new Error(`No files found matching glob ${glob_str} for format ${names[versionType]}`);
-    }
-
-    for (const file of files)
-    {
-        console.log(`Patching ${file} as ${names[versionType]}`);
-        await patchWithRegex(file, version, versionType);
-    }
 }

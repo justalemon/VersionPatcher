@@ -2,6 +2,17 @@ import * as core from "@actions/core";
 import * as github from "@actions/github";
 import { patch, VersionType } from "./patchers";
 import { ReleaseEvent } from "@octokit/webhooks-types/schema";
+import * as glob from "@actions/glob";
+
+const names = {
+    [VersionType.CSProject]: ".csproj",
+    [VersionType.NPM]: "package.json for npm",
+    [VersionType.SetupPython]: "setuptools setup.py",
+    [VersionType.InitPython]: "__init__.py for Python Package",
+    [VersionType.CFXManifest]: "fxmanifest.lua for cfx.re",
+    [VersionType.Gemspec]: "Bundler gemspec",
+    [VersionType.PyProject]: "pyproject.toml"
+};
 
 function toBoolean(input: string) {
     return input.toLowerCase().trim() === "true";
@@ -50,12 +61,22 @@ async function run() {
             [VersionType.PyProject]: core.getInput("pyproject-files")
         };
 
-        for (const [format, glob] of (Object.entries(patches) as unknown as ([VersionType, string])[])) {
-            if (!glob) {
+        for (const [versionType, glob_str] of (Object.entries(patches) as unknown as ([VersionType, string])[])) {
+            if (!glob_str) {
                 continue;
             }
-            
-            await patch(glob, version, format);
+
+            const files = await (await glob.create(glob_str)).glob();
+
+            if (files.length == 0) {
+                core.setFailed(`No files found matching glob ${glob_str} for format ${names[versionType]}`);
+            }
+
+            for (const file of files)
+            {
+                console.log(`Patching ${file} as ${names[versionType]}`);
+                await patch(file, version, versionType);
+            }
         }
     }
     catch (e)
