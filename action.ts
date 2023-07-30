@@ -1,6 +1,6 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { patch, VersionType } from "./patchers";
+import { patchFile, VersionType } from "./patchers";
 import { ReleaseEvent } from "@octokit/webhooks-types/schema";
 import * as glob from "@actions/glob";
 
@@ -75,7 +75,7 @@ async function run() {
             for (const file of files)
             {
                 console.log(`Patching ${file} as ${names[versionType]}`);
-                await patch(file, version, versionType);
+                await patchFile(file, version, versionType);
             }
         }
     }

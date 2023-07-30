@@ -1,1 +1,1 @@
-export { VersionType, patch } from "./patchers";
+export { VersionType, patchFile } from "./patchers";

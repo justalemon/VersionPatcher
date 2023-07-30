@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import { patch, VersionType } from "./patchers";
+import { patchFile, VersionType } from "./patchers";
 
 type NoParamsCallback = () => void;
 
@@ -27,11 +27,11 @@ describe("patchers", () => {
         const to = "files/csproj/TestProject.Edit.csproj";
         const ready = "files/csproj/TestProject.Ready.csproj";
 
-        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.CSProject));
+        await match(from, to, ready, async () => await patchFile(to, "2.3.4", VersionType.CSProject));
     });
 
     test("Invalid csproj", async () => {
-        await expect(async () => await patch("invalid.csproj", "1.0", VersionType.CSProject)).rejects.toThrow();
+        await expect(async () => await patchFile("invalid.csproj", "1.0", VersionType.CSProject)).rejects.toThrow();
     });
 
     test("Patch npm package.json", async () => {
@@ -39,11 +39,11 @@ describe("patchers", () => {
         const to = "files/npm/package.edit.json";
         const ready = "files/npm/package.ready.json";
 
-        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.NPM));
+        await match(from, to, ready, async () => await patchFile(to, "2.3.4", VersionType.NPM));
     });
 
     test("Invalid npm package.json", async () => {
-        await expect(async () => await patch("invalid.json", "1.0", VersionType.NPM)).rejects.toThrow();
+        await expect(async () => await patchFile("invalid.json", "1.0", VersionType.NPM)).rejects.toThrow();
     });
 
     test("Patch setup.py", async () => {
@@ -51,11 +51,11 @@ describe("patchers", () => {
         const to = "files/setuppy/setup.edit.py";
         const ready = "files/setuppy/setup.ready.py";
 
-        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.SetupPython));
+        await match(from, to, ready, async () => await patchFile(to, "2.3.4", VersionType.SetupPython));
     });
 
     test("Invalid setup.py", async () => {
-        await expect(async () => await patch("invalid.py", "1.0", VersionType.SetupPython)).rejects.toThrow();
+        await expect(async () => await patchFile("invalid.py", "1.0", VersionType.SetupPython)).rejects.toThrow();
     });
 
     test("Patch __init__.py", async () => {
@@ -63,11 +63,11 @@ describe("patchers", () => {
         const to = "files/initpy/__init__.edit.py";
         const ready = "files/initpy/__init__.ready.py";
 
-        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.InitPython));
+        await match(from, to, ready, async () => await patchFile(to, "2.3.4", VersionType.InitPython));
     });
 
     test("Invalid __init__.py", async () => {
-        await expect(async () => await patch("invalid.py", "1.0", VersionType.InitPython)).rejects.toThrow();
+        await expect(async () => await patchFile("invalid.py", "1.0", VersionType.InitPython)).rejects.toThrow();
     });
 
     test("Patch fxmanifest.lua", async () => {
@@ -75,11 +75,11 @@ describe("patchers", () => {
         const to = "files/fxmanifest/fxmanifest.edit.lua";
         const ready = "files/fxmanifest/fxmanifest.ready.lua";
 
-        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.CFXManifest));
+        await match(from, to, ready, async () => await patchFile(to, "2.3.4", VersionType.CFXManifest));
     });
 
     test("Invalid fxmanifest.lua", async () => {
-        await expect(async () => await patch("invalid.lua", "1.0", VersionType.CFXManifest)).rejects.toThrow();
+        await expect(async () => await patchFile("invalid.lua", "1.0", VersionType.CFXManifest)).rejects.toThrow();
     });
     
     test("Patch .gemspec", async () => {
@@ -87,11 +87,11 @@ describe("patchers", () => {
         const to = "files/gemspec/octi.edit.gemspec";
         const ready = "files/gemspec/octi.ready.gemspec";
 
-        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.Gemspec));
+        await match(from, to, ready, async () => await patchFile(to, "2.3.4", VersionType.Gemspec));
     });
 
     test("Invalid .gemspec", async () => {
-        await expect(async () => await patch("invalid.gemspec", "1.0", VersionType.Gemspec)).rejects.toThrow();
+        await expect(async () => await patchFile("invalid.gemspec", "1.0", VersionType.Gemspec)).rejects.toThrow();
     });
     
     test("Patch pyproject.toml", async () => {
@@ -99,10 +99,10 @@ describe("patchers", () => {
         const to = "files/pyproject/pyproject.edit.toml";
         const ready = "files/pyproject/pyproject.ready.toml";
 
-        await match(from, to, ready, async () => await patch(to, "2.3.4", VersionType.PyProject));
+        await match(from, to, ready, async () => await patchFile(to, "2.3.4", VersionType.PyProject));
     });
 
     test("Invalid pyproject.toml", async () => {
-        await expect(async () => await patch("invalid.toml", "1.0", VersionType.PyProject)).rejects.toThrow();
+        await expect(async () => await patchFile("invalid.toml", "1.0", VersionType.PyProject)).rejects.toThrow();
     });
 });

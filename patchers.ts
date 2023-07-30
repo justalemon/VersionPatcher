@@ -23,7 +23,7 @@ const regexes = {
     [VersionType.PyProject]: new RegExp("(version = \")" + version + "(\")")
 };
 
-export async function patch(file: string, version: string, versionType: VersionType)
+export async function patchFile(file: string, version: string, versionType: VersionType)
 {
     const regex: null | RegExp = regexes[versionType];
     
