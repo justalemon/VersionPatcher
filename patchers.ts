@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import * as glob from "@actions/glob";
 
 export enum VersionType {
     CSProject = 0,
