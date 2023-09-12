@@ -17,8 +17,8 @@ dependencies:
 
 devDependencies:
   '@octokit/webhooks-types':
-    specifier: ^7.1.0
-    version: 7.1.0
+    specifier: ^7.3.0
+    version: 7.3.0
   '@types/jest':
     specifier: ^28.1.8
     version: 28.1.8
@@ -847,8 +847,8 @@ packages:
       '@octokit/openapi-types': 12.11.0
     dev: false
 
-  /@octokit/webhooks-types@7.1.0:
-    resolution: {integrity: sha512-y92CpG4kFFtBBjni8LHoV12IegJ+KFxLgKRengrVjKmGE5XMeCuGvlfRe75lTRrgXaG6XIWJlFpIDTlkoJsU8w==}
+  /@octokit/webhooks-types@7.3.0:
+    resolution: {integrity: sha512-DnZ0JdT6+me5a74H/FxHz6Pu3udTtGj5qfno9GhHWgdJoqo1EvaBWqnXRN2//XarzgfbsgkBO9Kzv7ap99mNuQ==}
     dev: true
 
   /@sinclair/typebox@0.24.51:
