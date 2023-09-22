@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 285:
+/***/ 763:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
 
@@ -123,7 +123,7 @@ var exports = __webpack_exports__;
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.patchFile = exports.VersionType = void 0;
-var patchers_1 = __nccwpck_require__(285);
+var patchers_1 = __nccwpck_require__(763);
 Object.defineProperty(exports, "VersionType", ({ enumerable: true, get: function () { return patchers_1.VersionType; } }));
 Object.defineProperty(exports, "patchFile", ({ enumerable: true, get: function () { return patchers_1.patchFile; } }));
 
