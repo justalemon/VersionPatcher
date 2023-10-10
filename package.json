@@ -24,7 +24,7 @@
     "homepage": "https://github.com/justalemon/VersionPatcher#readme",
     "dependencies": {
         "@actions/core": "^1.10.1",
-        "@actions/github": "^5.1.1",
+        "@actions/github": "^6.0.0",
         "@actions/glob": "^0.4.0"
     },
     "devDependencies": {
