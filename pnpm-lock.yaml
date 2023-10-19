@@ -23,8 +23,8 @@ devDependencies:
     specifier: ^28.1.8
     version: 28.1.8
   '@types/xml2js':
-    specifier: ^0.4.12
-    version: 0.4.12
+    specifier: ^0.4.13
+    version: 0.4.13
   '@typescript-eslint/eslint-plugin':
     specifier: ^5.62.0
     version: 5.62.0(@typescript-eslint/parser@5.62.0)(eslint@8.51.0)(typescript@5.2.2)
@@ -953,8 +953,8 @@ packages:
     resolution: {integrity: sha512-Hl219/BT5fLAaz6NDkSuhzasy49dwQS/DSdu4MdggFB8zcXv7vflBI3xp7FEmkmdDkBUI2bPUNeMttp2knYdxw==}
     dev: true
 
-  /@types/xml2js@0.4.12:
-    resolution: {integrity: sha512-CZPpQKBZ8db66EP5hCjwvYrLThgZvnyZrPXK2W+UI1oOaWezGt34iOaUCX4Jah2X8+rQqjvl9VKEIT8TR1I0rA==}
+  /@types/xml2js@0.4.13:
+    resolution: {integrity: sha512-nuT42GzgoUa4zZgBoF4d+Zqc12/FlVxXCT4xU6j3RfqTFVQWrUAClI/0sNJ5ImM9Wv6KB42KMG2xsVMn4cSBzA==}
     dependencies:
       '@types/node': 20.4.5
     dev: true
