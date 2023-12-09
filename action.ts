@@ -62,19 +62,22 @@ async function run() {
         };
 
         for (const [versionType, glob_str] of (Object.entries(patches) as unknown as ([VersionType, string])[])) {
+            const name = names[versionType];
+
             if (glob_str.length == 0) {
+                console.log(`Skipping ${name} as no glob was specified`);
                 continue;
             }
 
             const files = await (await glob.create(glob_str)).glob();
 
             if (files.length == 0) {
-                core.setFailed(`No files found matching glob ${glob_str} for format ${names[versionType]}`);
+                core.setFailed(`No files found matching glob ${glob_str} for format ${name}`);
             }
 
             for (const file of files)
             {
-                console.log(`Patching ${file} as ${names[versionType]}`);
+                console.log(`Patching ${file} as ${name}`);
                 await patchFile(file, version, versionType);
             }
         }
