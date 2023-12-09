@@ -62,7 +62,7 @@ async function run() {
         };
 
         for (const [versionType, glob_str] of (Object.entries(patches) as unknown as ([VersionType, string])[])) {
-            if (!glob_str) {
+            if (glob_str.length == 0) {
                 continue;
             }
 
