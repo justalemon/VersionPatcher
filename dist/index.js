@@ -133,7 +133,8 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.patchFile = exports.VersionType = void 0;
+exports.VersionType = void 0;
+exports.patchFile = patchFile;
 const fs = __importStar(__nccwpck_require__(7147));
 var VersionType;
 (function (VersionType) {
@@ -169,7 +170,6 @@ async function patchFile(file, version, versionType) {
     const newContents = contents.replaceAll(new RegExp(regex, "g"), `$1${version}$3`);
     fs.writeFileSync(file, newContents);
 }
-exports.patchFile = patchFile;
 
 
 /***/ }),
