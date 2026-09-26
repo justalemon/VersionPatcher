@@ -2,6 +2,8 @@
     "compilerOptions": {
         "allowUnreachableCode": false,
         "esModuleInterop": true,
+        "allowImportingTsExtensions": true,
+        "rewriteRelativeImportExtensions": true,
         "module": "nodenext",
         "moduleResolution": "nodenext",
         "noImplicitAny": true,

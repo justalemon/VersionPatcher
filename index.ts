@@ -1,7 +1,7 @@
 import * as core from "@actions/core";
 import * as github from "@actions/github";
-import { patchFile, VersionType } from "./patchers";
-import { ReleaseEvent } from "@octokit/webhooks-types/schema";
+import { patchFile, VersionType } from "./patchers.ts";
+import { ReleaseEvent } from "@octokit/webhooks-types";
 import * as glob from "@actions/glob";
 
 const names = {
