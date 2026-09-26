@@ -99,7 +99,7 @@ jobs:
           git add dist/*
           git commit -m "Added changes from ${{ github.run_id }} [actions skip]" -a
       - continue-on-error: true
-        uses: ad-m/github-push-action@master
+        uses: ad-m/github-push-action@v1.3.0
         with:
           github_token: ${{ github.token }}
           branch: ${{ github.ref }}
