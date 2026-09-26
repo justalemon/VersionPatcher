@@ -44,5 +44,5 @@ outputs:
     description: The version used to patch the files
 
 runs:
-  using: node16
+  using: node24
   main: dist/index.js
