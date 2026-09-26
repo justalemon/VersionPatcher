@@ -8,7 +8,10 @@
         "rootDir": ".",
         "strict": true,
         "target": "ES2022",
-        "declaration": true
+        "declaration": true,
+        "types": [
+            "jest"
+        ]
     },
     "include": [
         "*.ts"
