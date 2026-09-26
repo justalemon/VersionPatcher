@@ -7,7 +7,7 @@
         "outDir": "./lib",
         "rootDir": ".",
         "strict": true,
-        "target": "ES2021",
+        "target": "ES2022",
         "declaration": true
     },
     "include": [
