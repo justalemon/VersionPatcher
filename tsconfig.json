@@ -2,12 +2,13 @@
     "compilerOptions": {
         "allowUnreachableCode": false,
         "esModuleInterop": true,
-        "module": "commonjs",
+        "module": "nodenext",
+        "moduleResolution": "nodenext",
         "noImplicitAny": true,
         "outDir": "./lib",
         "rootDir": ".",
         "strict": true,
-        "target": "ES2022",
+        "target": "esnext",
         "declaration": true,
         "types": [
             "jest"
