@@ -8,15 +8,15 @@ jobs:
   lint:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: pnpm/action-setup@v6.1.0
         with:
           version: 8
           standalone: true
           run_install: true
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7.0.0
         with:
-          node-version: 16
+          node-version: 22
           cache: pnpm
       - run: pnpm run lint
   build:
@@ -24,17 +24,17 @@ jobs:
     needs:
       - lint
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: pnpm/action-setup@v6.1.0
         with:
           version: 8
           standalone: true
           run_install: true
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7.0.0
         with:
-          node-version: 16
+          node-version: 22
           cache: pnpm
-      - uses: actions/cache@v6
+      - uses: actions/cache@v6.1.0
         env:
           cache-name: cache-build
         with:
@@ -46,15 +46,15 @@ jobs:
     needs:
       - lint
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
       - uses: pnpm/action-setup@v6.1.0
         with:
           version: 8
           standalone: true
           run_install: true
-      - uses: actions/setup-node@v7
+      - uses: actions/setup-node@v7.0.0
         with:
-          node-version: 16
+          node-version: 22
           cache: pnpm
       - run: pnpm run test
   run:
@@ -63,8 +63,8 @@ jobs:
       - build
       - test
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/cache@v6
+      - uses: actions/checkout@v7.0.1
+      - uses: actions/cache@v6.1.0
         env:
           cache-name: cache-build
         with:
@@ -82,11 +82,11 @@ jobs:
       - run
     if: github.ref == 'refs/heads/master'
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
           fetch-depth: 0
-      - uses: actions/cache@v6
+      - uses: actions/cache@v6.1.0
         env:
           cache-name: cache-build
         with:
