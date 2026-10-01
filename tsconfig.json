@@ -7,10 +7,10 @@
         "module": "nodenext",
         "moduleResolution": "nodenext",
         "noImplicitAny": true,
-        "outDir": "./lib",
+        "outDir": "./dist",
         "rootDir": ".",
         "strict": true,
-        "target": "esnext",
+        "target": "es2025",
         "declaration": true,
         "types": [
             "jest"
