@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: pnpm/action-setup@v6.1.0
+      - uses: pnpm/action-setup@v6.1.1
         with:
           version: 8
           standalone: true
@@ -24,7 +24,7 @@ jobs:
       - lint
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: pnpm/action-setup@v6.1.0
+      - uses: pnpm/action-setup@v6.1.1
         with:
           version: 8
           standalone: true
@@ -44,7 +44,7 @@ jobs:
       - lint
     steps:
       - uses: actions/checkout@v7.0.1
-      - uses: pnpm/action-setup@v6.1.0
+      - uses: pnpm/action-setup@v6.1.1
         with:
           version: 8
           standalone: true
